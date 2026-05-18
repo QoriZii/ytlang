@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{VIDEO_TITLE}} — Quiz</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f5f5f0;
+  --card-bg: #fffef9;
+  --text: #1a1a1a;
+  --border: #ccc9bf;
+  --level-color: #657b83;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --red: #dc2626;
+  --red-bg: #fef2f2;
+  --indigo: #1a6b6b;
+  --indigo-dark: #155757;
+  --amber: #f59e0b;
+  --muted: #666;
+  --hover-bg: #eceae4;
+  --card-hover: #f0ede6;
+  --shadow: 0 2px 16px oklch(30% 0.02 70 / 0.07);
+  --font-serif: 'Lora', Georgia, serif;
+  --font-cjk: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
+  --font-mono: 'Consolas', 'Courier New', monospace;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px 64px;
+  color: var(--text);
+}
+
+/* ── Two-column app shell ── */
+#app {
+  display: grid;
+  grid-template-columns: 176px 1fr;
+  width: 100%;
+  max-width: 860px;
+  align-items: start;
+}
+
+/* ── Left mode navigator ── */
+#mode-nav {
+  position: sticky;
+  top: 48px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  grid-column: 1 / -1;
+  font-family: var(--font-serif);
+  font-size: 1.625rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  padding-bottom: 24px;
+  margin-bottom: 8px;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.mode-btn {
+  display: block;
+  width: 100%;
+  padding: 9px 20px 9px 0;
+  min-height: 44px;
+  text-align: left;
+  border: none;
+  border-right: 2px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 400;
+  font-family: inherit;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: color 0.1s, border-color 0.1s;
+}
+.mode-btn:hover:not(.active) { color: #333; }
+.mode-btn.active { color: var(--indigo); border-right-color: var(--indigo); font-weight: 700; }
+
+/* ── Right content area ── */
+#content {
+  border-left: 1.5px solid var(--border);
+  padding-left: 40px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Level filter (underline, no pills) ── */
+.level-bar {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+  width: 100%;
+}
+.lvl-btn {
+  padding: 6px 14px;
+  min-height: 40px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.1s, border-color 0.1s;
+}
+.lvl-btn[data-level="all"].active          { color: var(--indigo); border-bottom-color: var(--indigo); }
+.lvl-btn[data-level="basic"].active        { color: #4d7c0f; border-bottom-color: #4d7c0f; }
+.lvl-btn[data-level="intermediate"].active { color: #b45309; border-bottom-color: #b45309; }
+.lvl-btn[data-level="advanced"].active     { color: #c0392b; border-bottom-color: #c0392b; }
+
+/* ── Progress ── */
+.progress {
+  font-size: 0.6875rem;
+  color: var(--muted);
+  margin-bottom: 14px;
+  letter-spacing: 0.08em;
+  width: 100%;
+  text-align: right;
+}
+
+/* ── Card shell ── */
+.quiz-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--level-color);
+  box-shadow: var(--shadow);
+}
+
+/* ── Nav row ── */
+.nav-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  width: 100%;
+}
+.nav-btn {
+  width: 44px; height: 44px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-family: inherit;
+  transition: background 0.1s;
+}
+.nav-btn:hover:not(:disabled) { background: var(--hover-bg); }
+.nav-btn:disabled { opacity: 0.25; cursor: default; }
+
+.nav-dots { display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; flex: 1; }
+.nav-dot {
+  width: 8px; height: 8px;
+  background: var(--border);
+  transition: background 0.1s;
+  cursor: pointer;
+}
+.nav-dot.seen    { background: #99b5b8; }
+.nav-dot.active  { background: var(--level-color); }
+.nav-dot.correct { background: var(--green); }
+.nav-dot.wrong   { background: var(--red); }
+
+/* ── Score row ── */
+.score-row {
+  margin-top: 12px;
+  display: flex;
+  gap: 14px;
+  font-size: 0.6875rem;
+  color: var(--muted);
+  width: 100%;
+  justify-content: center;
+}
+.score-row span { font-weight: 700; }
+.score-correct { color: var(--green); }
+.score-wrong   { color: var(--red); }
+
+/* ── Shortcuts ── */
+#shortcuts { margin-top: 24px; font-size: 0.6875rem; color: var(--muted); line-height: 2.4; text-align: center; }
+kbd {
+  background: #e8e6e0; border: 1px solid var(--border);
+  padding: 1px 5px; font-family: var(--font-mono); font-size: 0.625rem; color: #555;
+}
+
+/* ═══════════════════════════════════════════
+   FLASHCARD
+   ═══════════════════════════════════════════ */
+#card {
+  min-height: 320px;
+  padding: 48px 40px 40px;
+  display: flex; flex-direction: column; gap: 12px;
+  cursor: pointer;
+  transition: background 0.1s;
+  user-select: none;
+}
+#card:hover        { background: var(--card-hover); }
+#card:focus-visible { background: var(--card-hover); outline: 2px solid var(--level-color); outline-offset: 2px; }
+#card-front { display: flex; flex-direction: column; gap: 10px; }
+#card-back  { display: none; flex-direction: column; gap: 10px; }
+
+.card-badge { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.10em; color: var(--level-color); }
+
+#front-zh {
+  font-family: var(--font-cjk);
+  font-size: 5rem; font-weight: 700; line-height: 1.05; color: var(--text);
+}
+#front-pos { font-size: 0.8125rem; font-style: italic; color: var(--muted); }
+.flip-hint { font-size: 0.6875rem; color: var(--muted); margin-top: auto; padding-top: 24px; letter-spacing: 0.02em; }
+
+#back-word { font-family: var(--font-serif); font-size: 3.5rem; font-weight: 600; color: var(--level-color); line-height: 1.05; }
+#back-pron { font-size: 0.9375rem; font-style: italic; color: var(--muted); margin-top: 2px; }
+#back-pos  { font-size: 0.8125rem; font-style: italic; color: var(--muted); }
+#back-def  { font-size: 0.9375rem; color: #333; line-height: 1.65; }
+#back-example {
+  font-size: 0.875rem; font-style: italic; color: var(--muted);
+  border-left: 2px solid var(--level-color); padding-left: 12px; line-height: 1.6; margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   FILL-IN-BLANK  (word left, exercise right)
+   ═══════════════════════════════════════════ */
+#fill-card { display: grid; grid-template-columns: 1fr 1fr; }
+
+.fill-left {
+  padding: 36px 28px;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.fill-right { padding: 36px 28px; display: flex; flex-direction: column; gap: 10px; }
+
+.diff-toggle {
+  display: inline-flex;
+  gap: 6px;
+  margin-top: 8px;
+  align-self: flex-start;
+}
+.diff-toggle button {
+  padding: 0; min-height: 44px; min-width: 44px;
+  cursor: pointer; font-size: 0.875rem; letter-spacing: -2px;
+  color: var(--muted); line-height: 1;
+  border: none; background: transparent; font-family: inherit;
+  transition: color 0.1s;
+}
+.diff-toggle button.active { color: var(--amber); }
+
+#fill-zh {
+  font-family: var(--font-cjk);
+  font-size: 3.75rem; font-weight: 700; line-height: 1.1; color: var(--text);
+}
+#fill-pos { font-size: 0.8125rem; font-style: italic; color: var(--muted); }
+
+#fill-pattern {
+  font-family: var(--font-mono);
+  font-size: 2.25rem; letter-spacing: 0.18em; color: var(--level-color); font-weight: 600;
+}
+
+#fill-input-row { display: flex; gap: 6px; }
+
+#fill-input {
+  flex: 1; padding: 10px 12px;
+  border: 1px solid var(--border);
+  font-size: 1rem; font-family: inherit; outline: none;
+  background: var(--bg);
+  transition: border-color 0.15s;
+}
+#fill-input:focus-visible { border-color: var(--indigo); }
+#fill-input.correct-input { border-color: var(--green); background: var(--green-bg); }
+#fill-input.wrong-input   { border-color: var(--red);   background: var(--red-bg); }
+#fill-input:disabled { opacity: 0.8; }
+
+#fill-check-btn {
+  padding: 10px 16px; border: none;
+  background: var(--indigo); color: #fff;
+  font-size: 0.8125rem; font-weight: 600; font-family: inherit;
+  cursor: pointer; transition: background 0.1s; white-space: nowrap;
+}
+#fill-check-btn:hover:not(:disabled) { background: var(--indigo-dark); }
+#fill-check-btn:disabled { opacity: 0.35; cursor: default; }
+
+#fill-feedback { font-size: 0.875rem; font-weight: 600; min-height: 1.3em; }
+#fill-feedback.correct { color: var(--green); }
+#fill-feedback.wrong   { color: var(--red); }
+
+#fill-reveal { font-family: var(--font-serif); font-size: 2.25rem; font-weight: 600; color: var(--level-color); }
+#fill-reveal-pron { font-size: 0.875rem; font-style: italic; color: var(--muted); }
+#fill-example { font-size: 0.875rem; font-style: italic; color: var(--muted); border-left: 2px solid var(--level-color); padding-left: 10px; line-height: 1.6; }
+
+/* ═══════════════════════════════════════════
+   Q&A  (question left, options right)
+   ═══════════════════════════════════════════ */
+#qa-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top-color: var(--indigo);
+}
+
+#qa-question-col {
+  padding: 36px 28px;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 12px;
+}
+#qa-options-col { padding: 36px 28px; display: flex; flex-direction: column; gap: 6px; }
+
+.qa-meta { display: flex; align-items: center; gap: 8px; }
+.qa-type { font-size: 0.5625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--indigo); }
+.qa-stars { font-size: 0.875rem; letter-spacing: -2px; color: var(--amber); }
+
+#qa-question { font-size: 1.0625rem; font-weight: 600; line-height: 1.65; color: var(--text); flex: 1; }
+
+#qa-feedback {
+  font-size: 0.875rem; line-height: 1.65; color: #444;
+  border-left: 2px solid var(--indigo); padding-left: 12px;
+}
+#qa-feedback-ts {
+  display: inline-block; margin-top: 6px;
+  font-size: 0.75rem; font-weight: 600; color: var(--indigo);
+  text-decoration: underline; cursor: pointer;
+}
+
+#qa-options { display: flex; flex-direction: column; gap: 6px; }
+
+.qa-option {
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  font-size: 0.875rem; line-height: 1.5; color: var(--text);
+  cursor: pointer; text-align: left;
+  transition: background 0.1s, border-color 0.1s;
+  display: flex; gap: 10px; align-items: flex-start; width: 100%;
+  font-family: inherit;
+}
+.qa-option:hover:not(:disabled) { background: var(--hover-bg); }
+.qa-option:disabled { cursor: default; }
+.opt-label { font-weight: 700; font-size: 0.8125rem; color: var(--muted); flex-shrink: 0; min-width: 20px; padding-top: 1px; }
+
+.qa-option.correct-opt { border-color: var(--green); background: var(--green-bg); }
+.qa-option.wrong-opt   { border-color: var(--red);   background: var(--red-bg); }
+.qa-option.correct-opt .opt-label { color: var(--green); }
+.qa-option.wrong-opt   .opt-label { color: var(--red); }
+
+#qa-hint { margin-top: 20px; font-size: 0.6875rem; color: var(--muted); text-align: center; }
+
+{{BACK_BTN_CSS}}
+
+/* ── Utilities ── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap">
+</head>
+<body>
+
+{{BACK_BTN}}
+
+<div id="app">
+  <h1>{{VIDEO_TITLE}}</h1>
+  <nav id="mode-nav" aria-label="Quiz modes">
+    <button class="mode-btn active" data-mode="flashcard" aria-pressed="true">Flashcard</button>
+    <button class="mode-btn" data-mode="fillin" aria-pressed="false">Fill in blank</button>
+    <button class="mode-btn" data-mode="qa" aria-pressed="false">Comprehension</button>
+  </nav>
+
+  <div id="content">
+
+    <!-- ═══ FLASHCARD ═══ -->
+    <div id="section-flashcard">
+      <div id="level-bar" class="level-bar">
+        <button class="lvl-btn active" data-level="all" aria-pressed="true">All</button>
+        <button class="lvl-btn" data-level="basic" aria-pressed="false">Basic</button>
+        <button class="lvl-btn" data-level="intermediate" aria-pressed="false">Inter</button>
+        <button class="lvl-btn" data-level="advanced" aria-pressed="false">Adv</button>
+      </div>
+
+      <div id="progress" class="progress" aria-live="polite">— / —</div>
+
+      <div id="card" class="quiz-card" role="button" tabindex="0" aria-label="Flashcard — click to reveal answer">
+        <div id="card-front">
+          <div class="card-badge" id="front-badge"></div>
+          <div id="front-zh">—</div>
+          <div id="front-pos"></div>
+          <div class="flip-hint">Click or press <kbd>Space</kbd> to reveal</div>
+        </div>
+        <div id="card-back">
+          <div class="card-badge" id="back-badge"></div>
+          <div id="back-word"></div>
+          <div id="back-pron"></div>
+          <div id="back-pos"></div>
+          <div id="back-def"></div>
+          <div id="back-example"></div>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" id="btn-prev" aria-label="Previous card">&#8592;</button>
+        <div id="nav-dots" class="nav-dots"></div>
+        <button class="nav-btn" id="btn-next" aria-label="Next card">&#8594;</button>
+      </div>
+
+      <div id="shortcuts">
+        <kbd>Space</kbd> flip &nbsp;&nbsp;
+        <kbd>←</kbd> <kbd>→</kbd> navigate &nbsp;&nbsp;
+        <kbd>0</kbd> all &nbsp;
+        <kbd>1</kbd> basic &nbsp;
+        <kbd>2</kbd> inter &nbsp;
+        <kbd>3</kbd> advanced
+      </div>
+    </div>
+
+    <!-- ═══ FILL-IN-BLANK ═══ -->
+    <div id="section-fillin" style="display:none">
+      <div id="fill-level-bar" class="level-bar">
+        <button class="lvl-btn active" data-level="all" aria-pressed="true">All</button>
+        <button class="lvl-btn" data-level="basic" aria-pressed="false">Basic</button>
+        <button class="lvl-btn" data-level="intermediate" aria-pressed="false">Inter</button>
+        <button class="lvl-btn" data-level="advanced" aria-pressed="false">Adv</button>
+      </div>
+
+      <div id="fill-progress" class="progress" aria-live="polite">— / —</div>
+
+      <div class="quiz-card" id="fill-card">
+        <div class="fill-left">
+          <div class="card-badge" id="fill-badge"></div>
+          <div id="fill-zh">—</div>
+          <div id="fill-pos"></div>
+          <div class="diff-toggle" id="fill-diff-toggle">
+            <button class="active" data-diff="easy" aria-pressed="true">★★</button>
+            <button data-diff="hard" aria-pressed="false">★★★</button>
+          </div>
+        </div>
+        <div class="fill-right">
+          <div id="fill-pattern"></div>
+          <div id="fill-input-row">
+            <label for="fill-input" class="sr-only">Type the word</label>
+            <input id="fill-input" type="text" placeholder="Type the word…" autocomplete="off" autocorrect="off" spellcheck="false">
+            <button id="fill-check-btn">Check</button>
+          </div>
+          <div id="fill-feedback" role="alert"></div>
+          <div id="fill-reveal" style="display:none"></div>
+          <div id="fill-reveal-pron" style="display:none"></div>
+          <div id="fill-example" style="display:none"></div>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" id="fill-btn-prev" aria-label="Previous">&#8592;</button>
+        <div id="fill-nav-dots" class="nav-dots"></div>
+        <button class="nav-btn" id="fill-btn-next" aria-label="Next">&#8594;</button>
+      </div>
+
+      <div class="score-row">
+        Correct: <span id="fill-correct-count" class="score-correct">0</span>
+        &nbsp; Wrong: <span id="fill-wrong-count" class="score-wrong">0</span>
+      </div>
+    </div>
+
+    <!-- ═══ Q&A ═══ -->
+    <div id="section-qa" style="display:none">
+      <div id="qa-progress" class="progress" aria-live="polite">— / —</div>
+
+      <div class="quiz-card" id="qa-card">
+        <div id="qa-question-col">
+          <div class="qa-meta">
+            <span class="qa-type">Comprehension</span>
+            <span class="qa-stars" id="qa-stars"></span>
+          </div>
+          <p id="qa-question"></p>
+          <div id="qa-feedback" style="display:none"></div>
+        </div>
+        <div id="qa-options-col">
+          <div id="qa-options"></div>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" id="qa-btn-prev" aria-label="Previous">&#8592;</button>
+        <div id="qa-nav-dots" class="nav-dots"></div>
+        <button class="nav-btn" id="qa-btn-next" aria-label="Next">&#8594;</button>
+      </div>
+
+      <div class="score-row">
+        Correct: <span id="qa-correct-count" class="score-correct">0</span>
+        &nbsp; Wrong: <span id="qa-wrong-count" class="score-wrong">0</span>
+      </div>
+
+      <div id="qa-hint">
+        <kbd>A</kbd> <kbd>B</kbd> <kbd>C</kbd> <kbd>D</kbd> select &nbsp;&nbsp;
+        <kbd>←</kbd> <kbd>→</kbd> navigate
+      </div>
+    </div>
+
+  </div><!-- #content -->
+</div><!-- #app -->
+
+<script type="application/json" id="vocab-data">{{VOCAB_DATA}}</script>
+<script type="application/json" id="quiz-questions-data">{{QUIZ_QUESTIONS_DATA}}</script>
+
+<script>
+// ── Data ──────────────────────────────────────────────────────────
+const VOCAB_DATA         = JSON.parse(document.getElementById('vocab-data').textContent);
+const QUIZ_QUESTIONS_RAW = JSON.parse(document.getElementById('quiz-questions-data').textContent);
+const VIDEO_URL          = {{VIDEO_URL}};
+
+{{LEVEL_COLORS_JS}}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+{{FMT_SECONDS_JS}}
+
+// Shared dot-navigator renderer
+function renderDots(navId, items, currentIndex, getExtraClass, goToFn) {
+  const nav = document.getElementById(navId);
+  const total = Math.min(items.length, 16);
+  nav.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('span');
+    dot.className = 'nav-dot' + getExtraClass(i, currentIndex);
+    dot.addEventListener('click', () => goToFn(i));
+    nav.appendChild(dot);
+  }
+  if (items.length > 16) {
+    const more = document.createElement('span');
+    more.style.cssText = 'font-size:0.6875rem;color:var(--muted);margin-left:6px;';
+    more.textContent = `+${items.length - 16}`;
+    nav.appendChild(more);
+  }
+}
+
+// ── Mode switching ─────────────────────────────────────────────────
+let currentMode = 'flashcard';
+let fillReady = false, qaReady = false;
+
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const mode = btn.dataset.mode;
+    if (mode === currentMode) return;
+    currentMode = mode;
+    document.querySelectorAll('.mode-btn').forEach(b => {
+      const active = b === btn;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    document.getElementById('section-flashcard').style.display = mode === 'flashcard' ? '' : 'none';
+    document.getElementById('section-fillin').style.display    = mode === 'fillin'    ? '' : 'none';
+    document.getElementById('section-qa').style.display        = mode === 'qa'        ? '' : 'none';
+    if (mode === 'fillin' && !fillReady) { initFill(); fillReady = true; }
+    if (mode === 'qa'     && !qaReady)   { initQA();   qaReady   = true; }
+  });
+});
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  FLASHCARD MODE
+// ═══════════════════════════════════════════════════════════════════
+let fcLevel = 'all', fcVocab = [], fcIndex = 0, fcRevealed = false, fcSeen = new Set();
+
+function setFCLevel(level) {
+  fcLevel = level;
+  document.querySelectorAll('#level-bar .lvl-btn').forEach(b => {
+    const active = b.dataset.level === level;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  fcVocab    = shuffle(level === 'all' ? [...VOCAB_DATA] : VOCAB_DATA.filter(v => v.level === level));
+  fcIndex    = 0; fcSeen = new Set(); fcRevealed = false;
+  renderFCCard(); renderFCDots();
+}
+
+function renderFCCard() {
+  const total = fcVocab.length;
+  document.getElementById('progress').textContent = total ? `${fcIndex + 1} / ${total}` : '0 / 0';
+  if (!total) { document.getElementById('front-zh').textContent = '—'; return; }
+  const v = fcVocab[fcIndex];
+  const label = v.level.charAt(0).toUpperCase() + v.level.slice(1);
+  applyLevelColor(v.level);
+  document.getElementById('front-badge').textContent  = label;
+  const frontZh = document.getElementById('front-zh');
+  frontZh.textContent = v.zh;
+  frontZh.lang = 'zh';
+  document.getElementById('front-pos').textContent    = v.pos;
+  document.getElementById('back-badge').textContent   = label;
+  document.getElementById('back-word').textContent    = v.word;
+  document.getElementById('back-pron').textContent    = v.pronunciation || '';
+  document.getElementById('back-pos').textContent     = v.pos;
+  document.getElementById('back-def').textContent     = v.definition;
+  document.getElementById('back-example').textContent = `"${v.example}"`;
+  showFCFace(fcRevealed);
+  document.getElementById('btn-prev').disabled = fcIndex === 0;
+  document.getElementById('btn-next').disabled = fcIndex === total - 1;
+}
+
+function showFCFace(reveal) {
+  fcRevealed = reveal;
+  document.getElementById('card-front').style.display = reveal ? 'none' : 'flex';
+  document.getElementById('card-back').style.display  = reveal ? 'flex' : 'none';
+  document.getElementById('card').setAttribute('aria-label',
+    reveal ? 'Flashcard — back side. Press Space to flip back.' : 'Flashcard — click or press Space to reveal answer');
+}
+
+function fcFlip() { if (!fcVocab.length) return; fcSeen.add(fcIndex); showFCFace(!fcRevealed); renderFCDots(); }
+
+function fcGoTo(idx) {
+  if (idx < 0 || idx >= fcVocab.length) return;
+  fcIndex = idx; fcRevealed = false; renderFCCard(); renderFCDots();
+}
+
+function renderFCDots() {
+  renderDots('nav-dots', fcVocab, fcIndex,
+    (i, cur) => (i === cur ? ' active' : fcSeen.has(i) ? ' seen' : ''),
+    fcGoTo);
+}
+
+document.getElementById('card').addEventListener('click', fcFlip);
+document.getElementById('btn-prev').addEventListener('click', e => { e.stopPropagation(); fcGoTo(fcIndex - 1); });
+document.getElementById('btn-next').addEventListener('click', e => { e.stopPropagation(); fcGoTo(fcIndex + 1); });
+document.querySelectorAll('#level-bar .lvl-btn').forEach(b => b.addEventListener('click', () => setFCLevel(b.dataset.level)));
+setFCLevel('all');
+
+// ── Back button (server only) ──
+if (window.location.protocol !== 'file:') {
+  document.getElementById('back-btn').style.display = 'flex';
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  FILL-IN-BLANK MODE
+// ═══════════════════════════════════════════════════════════════════
+// Key positions: indices 3, 6, 9, 12, … (every 3rd starting at index 3)
+// Easy (★★):  blank key positions, show everything else → ~2/3 revealed
+// Hard (★★★): show only key positions, blank everything else → ~1/3 revealed
+function makePattern(word, diff) {
+  const chars = word.split('');
+  if (word.length <= 3) {
+    return diff === 'easy'
+      ? chars.map((c, i) => i === 0 ? '_' : c).join('')
+      : chars.map((c, i) => i === word.length - 1 ? c : '_').join('');
+  }
+  return chars.map((c, i) => {
+    const isKey = i > 0 && i % 3 === 0;
+    return diff === 'easy' ? (isKey ? '_' : c) : (isKey ? c : '_');
+  }).join('');
+}
+
+let fillDiff    = 'easy';
+let fillVocab   = [], fillIndex = 0;
+let fillResults = [], fillSelected = [];
+let fillScoreC  = 0, fillScoreW = 0;
+let fillFocusTimer = null;
+
+function initFill() { setFillLevel('all'); }
+
+function resetFillState() {
+  fillIndex    = 0;
+  fillResults  = new Array(fillVocab.length).fill(null);
+  fillSelected = new Array(fillVocab.length).fill('');
+  fillScoreC   = 0; fillScoreW = 0;
+  updateFillScore();
+  renderFillCard(); renderFillDots();
+}
+
+function setFillDiff(diff) {
+  fillDiff = diff;
+  document.querySelectorAll('#fill-diff-toggle button').forEach(btn => {
+    const active = btn.dataset.diff === diff;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  resetFillState();
+}
+
+function setFillLevel(level) {
+  document.querySelectorAll('#fill-level-bar .lvl-btn').forEach(b => {
+    const active = b.dataset.level === level;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  fillVocab = shuffle(level === 'all' ? [...VOCAB_DATA] : VOCAB_DATA.filter(v => v.level === level));
+  resetFillState();
+}
+
+function renderFillCard() {
+  const total   = fillVocab.length;
+  document.getElementById('fill-progress').textContent = total ? `${fillIndex + 1} / ${total}` : '0 / 0';
+  if (!total) { document.getElementById('fill-zh').textContent = '—'; return; }
+
+  const v       = fillVocab[fillIndex];
+  const result  = fillResults[fillIndex];
+  const answered = result !== null;
+  const label   = v.level.charAt(0).toUpperCase() + v.level.slice(1);
+
+  applyLevelColor(v.level);
+  document.getElementById('fill-badge').textContent   = label;
+  const fillZhEl = document.getElementById('fill-zh');
+  fillZhEl.textContent = v.zh;
+  fillZhEl.lang = 'zh';
+  document.getElementById('fill-pos').textContent     = v.pos;
+  document.getElementById('fill-pattern').textContent = makePattern(v.word, fillDiff);
+
+  const input      = document.getElementById('fill-input');
+  const checkBtn   = document.getElementById('fill-check-btn');
+  const feedback   = document.getElementById('fill-feedback');
+  const reveal     = document.getElementById('fill-reveal');
+  const revealPron = document.getElementById('fill-reveal-pron');
+  const example    = document.getElementById('fill-example');
+
+  input.value       = answered ? fillSelected[fillIndex] : '';
+  input.disabled    = answered;
+  input.className   = answered ? (result === 'correct' ? 'correct-input' : 'wrong-input') : '';
+  checkBtn.disabled = answered;
+
+  if (answered) {
+    feedback.textContent      = result === 'correct' ? '✓ Correct!' : '✗ The answer is:';
+    feedback.className        = result;
+    reveal.textContent        = v.word;
+    reveal.style.display      = '';
+    revealPron.textContent    = v.pronunciation || '';
+    revealPron.style.display  = v.pronunciation ? '' : 'none';
+    example.textContent       = `"${v.example}"`;
+    example.style.display     = '';
+  } else {
+    feedback.textContent      = '';
+    feedback.className        = '';
+    reveal.style.display      = 'none';
+    revealPron.style.display  = 'none';
+    example.style.display     = 'none';
+    clearTimeout(fillFocusTimer);
+    fillFocusTimer = setTimeout(() => input.focus(), 50);
+  }
+
+  document.getElementById('fill-btn-prev').disabled = fillIndex === 0;
+  document.getElementById('fill-btn-next').disabled = fillIndex === total - 1;
+}
+
+function checkFillAnswer() {
+  if (!fillVocab.length || fillResults[fillIndex] !== null) return;
+  const v          = fillVocab[fillIndex];
+  const input      = document.getElementById('fill-input');
+  const userAnswer = input.value.trim().toLowerCase();
+  if (!userAnswer) return;
+
+  const isCorrect = userAnswer === v.word.toLowerCase();
+  fillResults[fillIndex]  = isCorrect ? 'correct' : 'wrong';
+  fillSelected[fillIndex] = input.value.trim();
+  if (isCorrect) fillScoreC++; else fillScoreW++;
+  updateFillScore();
+  renderFillCard(); renderFillDots();
+  if (isCorrect && fillIndex < fillVocab.length - 1) { const next = fillIndex + 1; setTimeout(() => fillGoTo(next), 900); }
+}
+
+function fillGoTo(idx) {
+  if (idx < 0 || idx >= fillVocab.length) return;
+  fillIndex = idx; renderFillCard(); renderFillDots();
+}
+
+function renderFillDots() {
+  renderDots('fill-nav-dots', fillVocab, fillIndex, (i, cur) => {
+    const r = fillResults[i];
+    return (i === cur ? ' active' : '') + (r === 'correct' ? ' correct' : r === 'wrong' ? ' wrong' : '');
+  }, fillGoTo);
+}
+
+function updateFillScore() {
+  document.getElementById('fill-correct-count').textContent = fillScoreC;
+  document.getElementById('fill-wrong-count').textContent   = fillScoreW;
+}
+
+document.getElementById('fill-check-btn').addEventListener('click', checkFillAnswer);
+document.getElementById('fill-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkFillAnswer(); });
+document.getElementById('fill-btn-prev').addEventListener('click', () => fillGoTo(fillIndex - 1));
+document.getElementById('fill-btn-next').addEventListener('click', () => fillGoTo(fillIndex + 1));
+document.querySelectorAll('#fill-level-bar .lvl-btn').forEach(b => b.addEventListener('click', () => setFillLevel(b.dataset.level)));
+document.querySelectorAll('#fill-diff-toggle button').forEach(btn => btn.addEventListener('click', () => setFillDiff(btn.dataset.diff)));
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  COMPREHENSION Q&A MODE
+// ═══════════════════════════════════════════════════════════════════
+let qaQuestions = [], qaOptions = [], qaIndex = 0;
+let qaResults = [], qaSelected = [];
+let qaScoreC = 0, qaScoreW = 0;
+
+function buildOptions(q) {
+  const opts    = shuffle([q.answer, ...(q.distractors || [])]);
+  const correct = opts.indexOf(q.answer);
+  return { opts, correct };
+}
+
+function initQA() {
+  if (!QUIZ_QUESTIONS_RAW.length) {
+    document.getElementById('qa-question').textContent = 'No comprehension questions for this lesson.';
+    document.getElementById('qa-options').innerHTML    = '';
+    document.getElementById('qa-progress').textContent = '0 / 0';
+    document.getElementById('qa-stars').textContent    = '';
+    return;
+  }
+  qaQuestions = shuffle([...QUIZ_QUESTIONS_RAW]);
+  qaOptions   = qaQuestions.map(q => buildOptions(q));
+  qaIndex     = 0;
+  qaResults   = new Array(qaQuestions.length).fill(null);
+  qaSelected  = new Array(qaQuestions.length).fill(null);
+  qaScoreC    = 0; qaScoreW = 0;
+  updateQAScore(); renderQACard(); renderQADots();
+}
+
+function renderQACard() {
+  const total    = qaQuestions.length;
+  const answered = qaResults[qaIndex] !== null;
+  document.getElementById('qa-progress').textContent = total ? `${qaIndex + 1} / ${total}` : '0 / 0';
+  if (!total) return;
+
+  const q = qaQuestions[qaIndex];
+  const { opts, correct } = qaOptions[qaIndex];
+
+  document.getElementById('qa-stars').textContent    = q.difficulty === 'hard' ? '★★★' : '★★';
+  document.getElementById('qa-question').textContent = q.en;
+
+  const labels = ['A', 'B', 'C', 'D'];
+  const optDiv = document.getElementById('qa-options');
+  optDiv.innerHTML = '';
+
+  opts.forEach((opt, i) => {
+    const btn   = document.createElement('button');
+    btn.className = 'qa-option';
+    btn.disabled  = answered;
+
+    const label = document.createElement('span');
+    label.className   = 'opt-label';
+    label.textContent = labels[i];
+
+    const text = document.createElement('span');
+    text.textContent = opt;
+
+    btn.appendChild(label);
+    btn.appendChild(text);
+
+    if (answered) {
+      if (i === correct)                                 btn.classList.add('correct-opt');
+      if (i === qaSelected[qaIndex] && i !== correct)   btn.classList.add('wrong-opt');
+    }
+
+    btn.addEventListener('click', () => selectQAOption(i));
+    optDiv.appendChild(btn);
+  });
+
+  // Feedback (in left column, below question)
+  const fb = document.getElementById('qa-feedback');
+  if (answered) {
+    const ts  = fmtSeconds(q.seconds || 0);
+    fb.textContent = q.explanation || '';
+    const a = document.createElement('a');
+    a.id = 'qa-feedback-ts';
+    a.href = `recording.html?t=${q.seconds || 0}`;
+    a.textContent = `\u25b6 [${ts}] Jump to this moment`;
+    fb.append(document.createElement('br'), a);
+    fb.style.display = '';
+  } else {
+    fb.style.display = 'none';
+  }
+
+  document.getElementById('qa-btn-prev').disabled = qaIndex === 0;
+  document.getElementById('qa-btn-next').disabled = qaIndex === total - 1;
+}
+
+function selectQAOption(selectedIdx) {
+  if (!qaQuestions.length || qaResults[qaIndex] !== null) return;
+  const { correct } = qaOptions[qaIndex];
+  const isCorrect = selectedIdx === correct;
+  qaResults[qaIndex]  = isCorrect ? 'correct' : 'wrong';
+  qaSelected[qaIndex] = selectedIdx;
+  if (isCorrect) qaScoreC++; else qaScoreW++;
+  updateQAScore(); renderQACard(); renderQADots();
+  if (isCorrect && qaIndex < qaQuestions.length - 1) { const next = qaIndex + 1; setTimeout(() => qaGoTo(next), 900); }
+}
+
+function qaGoTo(idx) {
+  if (idx < 0 || idx >= qaQuestions.length) return;
+  qaIndex = idx; renderQACard(); renderQADots();
+}
+
+function renderQADots() {
+  renderDots('qa-nav-dots', qaQuestions, qaIndex, (i, cur) => {
+    const r = qaResults[i];
+    return (i === cur ? ' active' : '') + (r === 'correct' ? ' correct' : r === 'wrong' ? ' wrong' : '');
+  }, qaGoTo);
+}
+
+function updateQAScore() {
+  document.getElementById('qa-correct-count').textContent = qaScoreC;
+  document.getElementById('qa-wrong-count').textContent   = qaScoreW;
+}
+
+document.getElementById('qa-btn-prev').addEventListener('click', () => qaGoTo(qaIndex - 1));
+document.getElementById('qa-btn-next').addEventListener('click', () => qaGoTo(qaIndex + 1));
+
+
+// ── Global keyboard handler ─────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  const inInput = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA';
+
+  if (currentMode === 'flashcard' && !inInput) {
+    switch (e.key) {
+      case ' ': case 'Enter': e.preventDefault(); fcFlip(); break;
+      case 'ArrowLeft':  fcGoTo(fcIndex - 1); break;
+      case 'ArrowRight': fcGoTo(fcIndex + 1); break;
+      case 'Tab': e.preventDefault(); fcGoTo(fcIndex + 1); break;
+      case '0': setFCLevel('all'); break;
+      case '1': setFCLevel('basic'); break;
+      case '2': setFCLevel('intermediate'); break;
+      case '3': setFCLevel('advanced'); break;
+    }
+  }
+
+  if (currentMode === 'fillin' && !inInput) {
+    if (e.key === 'ArrowLeft')  fillGoTo(fillIndex - 1);
+    if (e.key === 'ArrowRight') fillGoTo(fillIndex + 1);
+  }
+
+  if (currentMode === 'qa' && !inInput) {
+    if (e.key === 'ArrowLeft')  qaGoTo(qaIndex - 1);
+    if (e.key === 'ArrowRight') qaGoTo(qaIndex + 1);
+    const map = { a: 0, b: 1, c: 2, d: 3 };
+    const idx = map[e.key.toLowerCase()];
+    if (idx !== undefined) selectQAOption(idx);
+  }
+});
+</script>
+</body>
+</html>

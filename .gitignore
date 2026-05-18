@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+.venv/
+
+# Environment / secrets
+.env
+
+# Batch URL lists (personal video selections)
+batch/
+
+# Claude Code / agents / skills
+.claude/
+.agents/
+.superpowers/
+.impeccable.md
+skills-lock.json
+CLAUDE.md
+
+# Superpowers
+docs/superpowers/
+
+# OS
+.DS_Store
+Thumbs.db

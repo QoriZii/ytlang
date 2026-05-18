@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ytlang"
+version = "0.1.0"
+description = "Generate language teaching materials from YouTube videos"
+authors = [{ name = "QoriZii" }]
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = [
+    "typer>=0.12",
+    "xai-sdk",
+    "python-dotenv>=1.0",
+    "youtube-transcript-api>=0.6.3",
+    "yt-dlp>=2024.1.1",
+]
+
+[project.scripts]
+ytlang = "ytlang.cli.main:app"

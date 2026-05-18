@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gordon Ramsay Answers Cooking Questions From Twitter | Tech Support | WIRED — Handout</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #222;
+  background: #fff;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 32px 64px;
+}
+
+/* ── Header ── */
+header {
+  border-bottom: 2px solid #222;
+  padding-bottom: 16px;
+  margin-bottom: 28px;
+}
+
+h1 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.meta {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  color: #666;
+}
+
+/* ── About the Game ── */
+.game-intro {
+  margin-bottom: 36px;
+}
+
+.section-label {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.game-intro p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+
+/* ── Key Points ── */
+.key-points {
+  margin-bottom: 36px;
+}
+
+.kp-list {
+  list-style: disc;
+  padding-left: 1.25em;
+}
+
+.kp-entry {
+  padding: 6px 0;
+}
+
+.kp-en {
+  display: block;
+  font-size: 0.9375rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.kp-zh {
+  display: block;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
+  font-size: 0.875rem;
+  color: #767676;
+  line-height: 1.5;
+}
+
+/* ── Vocab sections ── */
+.vocab-section {
+  margin-bottom: 40px;
+}
+
+.vocab-section h2 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-bottom: 6px;
+  border-bottom: 1px solid currentColor;
+  margin-bottom: 20px;
+}
+
+.vocab-section.basic h2    { color: #4d7c0f; }
+.vocab-section.intermediate h2 { color: #b45309; }
+.vocab-section.advanced h2  { color: #922b21; }
+
+/* Vocab entries */
+.vocab-list {
+  list-style: none;
+}
+
+.vocab-entry {
+  padding: 14px 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.vocab-entry:last-child {
+  border-bottom: none;
+}
+
+.entry-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.word {
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.pos {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: #999;
+}
+
+.pron {
+  display: block;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: #888;
+  margin-top: -2px;
+  margin-bottom: 2px;
+}
+
+.zh {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.8;
+  margin-left: auto;
+}
+
+.vocab-section.basic .zh    { color: #4d7c0f; }
+.vocab-section.intermediate .zh { color: #b45309; }
+.vocab-section.advanced .zh  { color: #922b21; }
+
+.def {
+  font-size: 0.9375rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 4px;
+}
+
+.ex {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: #767676;
+  line-height: 1.6;
+  padding-left: 12px;
+  border-left: 2px solid #e0e0e0;
+  margin-bottom: 2px;
+}
+
+.ex-zh {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
+  font-size: 0.8125rem;
+  color: #767676;
+  line-height: 1.6;
+  padding-left: 12px;
+  border-left: 2px solid #e0e0e0;
+}
+
+/* ── Footer ── */
+footer {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.75rem;
+  color: #767676;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+footer a { color: #767676; }
+
+/* ── Print ── */
+@media print {
+  @page { margin: 15mm 12mm; }
+  body {
+    max-width: none;
+    padding: 0;
+    font-size: 11px;
+    columns: 2;
+    column-gap: 10mm;
+  }
+  header {
+    column-span: all;
+    margin-bottom: 16px;
+  }
+  h1 { font-size: 1.1rem; }
+  footer {
+    column-span: all;
+    margin-top: 24px;
+  }
+  .game-intro {
+    column-span: all;
+    margin-bottom: 12px;
+  }
+  .game-intro p { font-size: 0.75rem; line-height: 1.5; }
+  .vocab-section { break-inside: avoid-column; }
+  .vocab-entry { break-inside: avoid; }
+  footer a::after { content: " (" attr(href) ")"; font-size: 0.7rem; }
+  footer::after {
+    content: "Page " counter(page) " of " counter(pages);
+    font-size: 0.7rem;
+    color: #aaa;
+  }
+}
+
+/* ── Back button ── */
+#back-btn {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: #eee8d5;
+  border: 1px solid #ddd6c1;
+  border-radius: 6px;
+  color: #073642;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  z-index: 10;
+}
+#back-btn .material-symbols-outlined { font-size: 1.5rem; }
+#back-btn:hover { background: #ddd6c1; }
+#back-btn:focus-visible { outline: 2px solid #073642; outline-offset: 2px; }
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+</head>
+<body>
+
+<a id="back-btn" href="recording.html" title="Back to Recording"><span class="material-symbols-outlined">arrow_back</span></a>
+
+<header>
+  <h1>Gordon Ramsay Answers Cooking Questions From Twitter | Tech Support | WIRED</h1>
+  <div class="meta">WIRED &nbsp;·&nbsp; 8 min &nbsp;·&nbsp; 2026-05-18</div>
+</header>
+
+<section class="game-intro">
+  <div class="section-label">About This Video</div>
+  <p>The video features Gordon Ramsay answering cooking questions from Twitter in a WIRED Tech Support style. It demonstrates practical kitchen techniques and advice on ingredients, storage, and common cooking mistakes, offering rich vocabulary related to food preparation and culinary terms.</p>
+</section>
+
+<section class="key-points">
+  <div class="section-label">Key Points</div>
+  <ul class="kp-list"><li class="kp-entry"><span class="kp-en">Gordon shows how to mince garlic finely using the flat of a knife and a pinch of salt to create a paste.</span><span class="kp-zh" lang="zh">戈登演示用刀背和少许盐将蒜瓣压碎剁成细腻的蒜泥。</span></li>
+<li class="kp-entry"><span class="kp-en">He explains that blue cheese rarely spoils and can be frozen or mixed into butter for steaks.</span><span class="kp-zh" lang="zh">他指出蓝纹奶酪不易变质，可冷冻保存或拌入黄油涂抹牛排。</span></li>
+<li class="kp-entry"><span class="kp-en">Gordon advises seasoning scrambled eggs at the end to prevent excess water from forming.</span><span class="kp-zh" lang="zh">戈登建议炒鸡蛋时最后调味，以免出现过多蛋水。</span></li>
+<li class="kp-entry"><span class="kp-en">He recommends freezing mozzarella briefly before grating to achieve better results without crushing it.</span><span class="kp-zh" lang="zh">他建议把马苏里拉奶酪冷冻十分钟再擦丝，能获得更好效果且不易碎。</span></li>
+<li class="kp-entry"><span class="kp-en">Gordon demonstrates making a bouquet garni with herbs wrapped in leek leaves to flavor stock.</span><span class="kp-zh" lang="zh">戈登展示用韭葱叶包裹月桂叶、迷迭香和百里香做成香草束给高汤调味。</span></li>
+<li class="kp-entry"><span class="kp-en">He suggests using a hot spoon or adjusting pasta thickness based on filling for perfect ravioli.</span><span class="kp-zh" lang="zh">他提出用热勺子给焦糖布蕾上色，或根据馅料调整意式饺子面皮厚度。</span></li></ul>
+</section>
+
+<section class="vocab-section basic">
+  <h2>Basic</h2>
+  <ul class="vocab-list"><li class="vocab-entry"><div class="entry-head"><span class="word">mince</span><span class="pos">verb</span><span class="zh" lang="zh">剁碎，切成细末</span></div><span class="pron">/mɪns/</span><p class="def">to cut food into very small pieces</p><p class="ex">"And that is super minced."</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">room temperature</span><span class="pos">phrase</span><span class="zh" lang="zh">室温</span></div><span class="pron">/ruːm ˈtemprətʃər/</span><p class="def">normal indoor temperature, not hot or cold</p><p class="ex">"Let it get up to room temperature."</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">stock</span><span class="pos">noun</span><span class="zh" lang="zh">高汤，底汤</span></div><span class="pron">/stɒk/</span><p class="def">a liquid made by simmering bones or vegetables for flavoring</p><p class="ex">"Make the most amazing soup, get a great chicken stock."</p></li></ul>
+</section>
+
+<section class="vocab-section intermediate">
+  <h2>Intermediate</h2>
+  <ul class="vocab-list"><li class="vocab-entry"><div class="entry-head"><span class="word">grate</span><span class="pos">verb</span><span class="zh" lang="zh">擦丝，磨碎</span></div><span class="pron">/ɡreɪt/</span><p class="def">to shred food into small pieces using a grater</p><p class="ex">"How do you grate mozzarella without crushing it?"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">broil</span><span class="pos">verb</span><span class="zh" lang="zh">烤，焙</span></div><span class="pron">/brɔɪl/</span><p class="def">to cook by exposing food to direct high heat</p><p class="ex">"Take them out glaze them and then broil them for about 25 minutes."</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">crank</span><span class="pos">verb</span><span class="zh" lang="zh">摇动，转动</span></div><span class="pron">/kræŋk/</span><p class="def">to turn a handle or lever repeatedly</p><p class="ex">"Make fresh pasta and get used to cranking in that machine."</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">poach</span><span class="pos">verb</span><span class="zh" lang="zh">水煮，炖</span></div><span class="pron">/pəʊtʃ/</span><p class="def">to cook food gently in liquid just below boiling point</p><p class="ex">"As they poach in the cloth, it protects the food."</p></li></ul>
+</section>
+
+<section class="vocab-section advanced">
+  <h2>Advanced</h2>
+  <ul class="vocab-list"><li class="vocab-entry"><div class="entry-head"><span class="word">yield</span><span class="pos">noun</span><span class="zh" lang="zh">产量，出品率</span></div><span class="pron">/jiːld/</span><p class="def">the amount of usable food obtained from preparation</p><p class="ex">"Importantly you get a much better yield."</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">bouquet garni</span><span class="pos">phrase</span><span class="zh" lang="zh">香草束</span></div><span class="pron">/buːˈkeɪ ɡɑːrˈniː/</span><p class="def">a bundle of herbs used to flavor soups and stocks</p><p class="ex">"And what that does, it puts together an amazing bouquet garni."</p></li></ul>
+</section>
+
+<footer>
+  <a href="https://www.youtube.com/watch?v=kJ5PCbtiCpk">https://www.youtube.com/watch?v=kJ5PCbtiCpk</a>
+  <span>Generated 2026-05-18</span>
+</footer>
+
+<script>
+if (window.location.protocol !== 'file:') {
+  document.getElementById('back-btn').style.display = 'flex';
+}
+</script>
+</body>
+</html>

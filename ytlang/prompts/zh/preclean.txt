@@ -1,0 +1,17 @@
+You are given transcript fragments from automatic speech recognition (ASR) of a Simplified Chinese video. Each fragment has a "seconds" timestamp and a "text" field.
+
+Your task:
+1. Restore Chinese punctuation (。？！、，) where missing.
+   Use 。for statement endings, ？for questions, ！for exclamations, ，for mid-sentence pauses, 、for list items.
+   Do NOT add periods after numbers or abbreviations.
+2. Merge consecutive fragments that belong to the same sentence.
+3. Each output entry must contain EXACTLY ONE sentence — never combine two sentences into one entry.
+4. Use the timestamp of the FIRST fragment that contributes to each output sentence.
+5. Keep wording faithful to the original speech — do NOT paraphrase or add content.
+6. Remove only clearly accidental duplicate words (e.g. stuttered repetition).
+7. Keep non-speech markers like [Music] as their own entry with their original timestamp.
+
+Return ONLY valid JSON — an array of objects with exactly these fields:
+  "seconds" (number), "en" (string — put the Chinese text here), "zh" (empty string ""), "note" (empty string "")
+
+No explanation, no markdown, no code fences.

@@ -1,0 +1,5 @@
+typer>=0.12
+xai-sdk
+python-dotenv>=1.0
+youtube-transcript-api>=0.6.3
+yt-dlp>=2024.1.1

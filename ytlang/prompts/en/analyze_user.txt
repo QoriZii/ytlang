@@ -1,0 +1,83 @@
+Video: {title}
+Channel: {channel}
+Duration: {duration} (~{duration_minutes:.0f} min)
+
+Target vocab: ~{target_per_level} words per level (basic / intermediate / advanced).
+
+--- BILINGUAL TRANSCRIPT ---
+{transcript_text}
+--- END TRANSCRIPT ---
+
+Return a single JSON object with EXACTLY this structure — no extra keys, no markdown:
+
+{{
+  "video_brief": "<2-3 sentences in English: what the video is about and why it has rich vocabulary>",
+  "key_points": [
+    {{
+      "en": "<one key idea or point demonstrated in the video, in English>",
+      "zh": "<same point in {native_lang_name}>"
+    }}
+  ],
+  "quiz_questions": [
+    {{
+      "en": "<specific, fact-based question suited for single-choice multiple choice>",
+      "answer": "<short correct answer — 3-8 words, used as the correct MC option>",
+      "explanation": "<1-2 sentences shown after answering — reference the video moment>",
+      "seconds": <integer — must match a seconds value in the transcript>,
+      "difficulty": "<easy|hard>",
+      "distractors": [
+        "<distractor 1>",
+        "<distractor 2>",
+        "<distractor 3>"
+      ]
+    }}
+  ],
+  "vocab": [
+    {{
+      "word": "<word or short phrase>",
+      "pos": "<noun|verb|adj|adv|phrase>",
+      "level": "<basic|intermediate|advanced>",
+      "pronunciation": "<IPA pronunciation, e.g. /ˈwɑːɡər/>",
+      "definition": "<concise English definition>",
+      "example": "<exact quote from transcript where this word appears>",
+      "example_seconds": <integer seconds>,
+      "zh": "<{native_lang_name} translation of the word>"
+    }}
+  ],
+  "transcript_notes": [
+    {{
+      "seconds": <integer — must match a seconds value in the transcript>,
+      "note": "<1-2 sentences in {native_lang_name} explaining the mechanic or context>"
+    }}
+  ]
+}}
+
+Key points rules:
+- Write 4-6 bullet points summarising the main ideas or points covered in the video.
+- Each point should be concise (one sentence).
+- Cover different moments across the video, not just the opening.
+
+Quiz questions rules:
+- Write 4-6 questions that are specific and fact-based, suited for single-choice multiple choice.
+- "answer" must be a short phrase (3-8 words) — it becomes the correct MC option text.
+- "explanation" is 1-2 sentences shown after the student answers — reference the specific video moment.
+- "difficulty": assign "easy" if distractors are obviously wrong (clearly different category); assign "hard" if distractors are plausible and require careful reading to eliminate.
+- "distractors": write exactly 3 wrong options.
+  - For easy: options from clearly different categories (wrong object type, wrong character, wrong action).
+  - For hard: plausible alternatives in the same category — require real comprehension to distinguish.
+- Each "seconds" must match a seconds value in the transcript where the answer appears.
+- Spread quiz questions across the full video timeline.
+
+Vocab rules:
+- DO NOT select proper nouns, character names, or place names.
+- Basic (A2-B1): everyday words a learner must know — common verbs, adjectives, nouns.
+- Intermediate (B1-B2): natural speech words — collocations, phrasal meanings, nuanced words.
+- Advanced (C1): precise vocabulary, formal register, idiomatic expressions.
+- Distribute words ACROSS the full video timeline — do not cluster all vocab in the first few minutes.
+- Each word's "example" must be an exact quote from the transcript above.
+- Each word's "example_seconds" must be the integer seconds of the line where the quote appears.
+
+Transcript notes rules:
+- ONLY add notes to lines that introduce a domain-specific concept, reference, or term that learners would benefit from having explained.
+- Each note must be 1-2 sentences in {native_lang_name}.
+- OMIT lines that need no note — transcript_notes should be a sparse list, not every line.

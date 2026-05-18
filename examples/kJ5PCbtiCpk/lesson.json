@@ -1,0 +1,1243 @@
+{
+  "video_id": "kJ5PCbtiCpk",
+  "title": "Gordon Ramsay Answers Cooking Questions From Twitter | Tech Support | WIRED",
+  "channel": "WIRED",
+  "duration": "8 min",
+  "url": "https://www.youtube.com/watch?v=kJ5PCbtiCpk",
+  "generated_date": "2026-05-18",
+  "video_brief": "The video features Gordon Ramsay answering cooking questions from Twitter in a WIRED Tech Support style. It demonstrates practical kitchen techniques and advice on ingredients, storage, and common cooking mistakes, offering rich vocabulary related to food preparation and culinary terms.",
+  "source_lang": "en",
+  "native_lang": "zh",
+  "key_points": [
+    {
+      "en": "Gordon shows how to mince garlic finely using the flat of a knife and a pinch of salt to create a paste.",
+      "zh": "戈登演示用刀背和少许盐将蒜瓣压碎剁成细腻的蒜泥。"
+    },
+    {
+      "en": "He explains that blue cheese rarely spoils and can be frozen or mixed into butter for steaks.",
+      "zh": "他指出蓝纹奶酪不易变质，可冷冻保存或拌入黄油涂抹牛排。"
+    },
+    {
+      "en": "Gordon advises seasoning scrambled eggs at the end to prevent excess water from forming.",
+      "zh": "戈登建议炒鸡蛋时最后调味，以免出现过多蛋水。"
+    },
+    {
+      "en": "He recommends freezing mozzarella briefly before grating to achieve better results without crushing it.",
+      "zh": "他建议把马苏里拉奶酪冷冻十分钟再擦丝，能获得更好效果且不易碎。"
+    },
+    {
+      "en": "Gordon demonstrates making a bouquet garni with herbs wrapped in leek leaves to flavor stock.",
+      "zh": "戈登展示用韭葱叶包裹月桂叶、迷迭香和百里香做成香草束给高汤调味。"
+    },
+    {
+      "en": "He suggests using a hot spoon or adjusting pasta thickness based on filling for perfect ravioli.",
+      "zh": "他提出用热勺子给焦糖布蕾上色，或根据馅料调整意式饺子面皮厚度。"
+    }
+  ],
+  "quiz_questions": [
+    {
+      "en": "What does Gordon recommend doing with leftover blue cheese?",
+      "answer": "Freeze it and mix into butter",
+      "explanation": "At 1:12, Gordon says to freeze leftover blue cheese and mix it into butter for use on steaks.",
+      "seconds": 1,
+      "difficulty": "easy",
+      "distractors": [
+        "Throw it away immediately",
+        "Cook it with scrambled eggs",
+        "Mix it with fresh garlic"
+      ]
+    },
+    {
+      "en": "According to Gordon, why should you season scrambled eggs at the end?",
+      "answer": "To prevent excess water",
+      "explanation": "At 1:33, Gordon explains that seasoning eggs at the beginning turns them gray and creates water.",
+      "seconds": 1,
+      "difficulty": "hard",
+      "distractors": [
+        "To make them cook faster",
+        "To improve the egg color",
+        "To reduce cooking time"
+      ]
+    },
+    {
+      "en": "How long does Gordon suggest putting mozzarella in the freezer before grating?",
+      "answer": "Ten minutes",
+      "explanation": "At 1:57, Gordon tells viewers to freeze mozzarella for 10 minutes to make grating easier.",
+      "seconds": 1,
+      "difficulty": "easy",
+      "distractors": [
+        "Thirty minutes",
+        "One hour",
+        "Five seconds"
+      ]
+    },
+    {
+      "en": "What does Gordon say is the best way to skim fat from chicken stock?",
+      "answer": "Use a slice of bread",
+      "explanation": "At 4:26, Gordon recommends using a slice of bread to absorb fat from the stock surface.",
+      "seconds": 4,
+      "difficulty": "hard",
+      "distractors": [
+        "Strain through cloth",
+        "Add ice cubes only",
+        "Boil it longer"
+      ]
+    },
+    {
+      "en": "What does Gordon use to make a bouquet garni in the video?",
+      "answer": "Leek leaves and herbs",
+      "explanation": "At 6:42, Gordon wraps bay leaves, rosemary and thyme in leek leaves to create the bundle.",
+      "seconds": 6,
+      "difficulty": "hard",
+      "distractors": [
+        "Cheesecloth and garlic",
+        "Paper towel and salt",
+        "Aluminum foil and pepper"
+      ]
+    },
+    {
+      "en": "What pasta size does Gordon recommend for ravioli?",
+      "answer": "Size two",
+      "explanation": "At 7:24, Gordon advises using size two pasta sheets instead of thicker size three.",
+      "seconds": 7,
+      "difficulty": "easy",
+      "distractors": [
+        "Size five",
+        "Size one",
+        "Size ten"
+      ]
+    }
+  ],
+  "vocab": [
+    {
+      "word": "mince",
+      "pos": "verb",
+      "level": "basic",
+      "definition": "to cut food into very small pieces",
+      "example": "And that is super minced.",
+      "example_seconds": 0,
+      "zh": "剁碎，切成细末",
+      "pronunciation": "/mɪns/"
+    },
+    {
+      "word": "room temperature",
+      "pos": "phrase",
+      "level": "basic",
+      "definition": "normal indoor temperature, not hot or cold",
+      "example": "Let it get up to room temperature.",
+      "example_seconds": 0,
+      "zh": "室温",
+      "pronunciation": "/ruːm ˈtemprətʃər/"
+    },
+    {
+      "word": "grate",
+      "pos": "verb",
+      "level": "intermediate",
+      "definition": "to shred food into small pieces using a grater",
+      "example": "How do you grate mozzarella without crushing it?",
+      "example_seconds": 1,
+      "zh": "擦丝，磨碎",
+      "pronunciation": "/ɡreɪt/"
+    },
+    {
+      "word": "yield",
+      "pos": "noun",
+      "level": "advanced",
+      "definition": "the amount of usable food obtained from preparation",
+      "example": "Importantly you get a much better yield.",
+      "example_seconds": 2,
+      "zh": "产量，出品率",
+      "pronunciation": "/jiːld/"
+    },
+    {
+      "word": "broil",
+      "pos": "verb",
+      "level": "intermediate",
+      "definition": "to cook by exposing food to direct high heat",
+      "example": "Take them out glaze them and then broil them for about 25 minutes.",
+      "example_seconds": 2,
+      "zh": "烤，焙",
+      "pronunciation": "/brɔɪl/"
+    },
+    {
+      "word": "bouquet garni",
+      "pos": "phrase",
+      "level": "advanced",
+      "definition": "a bundle of herbs used to flavor soups and stocks",
+      "example": "And what that does, it puts together an amazing bouquet garni.",
+      "example_seconds": 7,
+      "zh": "香草束",
+      "pronunciation": "/buːˈkeɪ ɡɑːrˈniː/"
+    },
+    {
+      "word": "crank",
+      "pos": "verb",
+      "level": "intermediate",
+      "definition": "to turn a handle or lever repeatedly",
+      "example": "Make fresh pasta and get used to cranking in that machine.",
+      "example_seconds": 7,
+      "zh": "摇动，转动",
+      "pronunciation": "/kræŋk/"
+    },
+    {
+      "word": "poach",
+      "pos": "verb",
+      "level": "intermediate",
+      "definition": "to cook food gently in liquid just below boiling point",
+      "example": "As they poach in the cloth, it protects the food.",
+      "example_seconds": 7,
+      "zh": "水煮，炖",
+      "pronunciation": "/pəʊtʃ/"
+    },
+    {
+      "word": "stock",
+      "pos": "noun",
+      "level": "basic",
+      "definition": "a liquid made by simmering bones or vegetables for flavoring",
+      "example": "Make the most amazing soup, get a great chicken stock.",
+      "example_seconds": 3,
+      "zh": "高汤，底汤",
+      "pronunciation": "/stɒk/"
+    }
+  ],
+  "transcript": [
+    {
+      "seconds": 0,
+      "en": "Hi my name is Gordon Remy welcome to Chef support.",
+      "zh": "嗨，我叫Gordon Remy，欢迎来到Chef Support。",
+      "note": ""
+    },
+    {
+      "seconds": 1,
+      "en": "Today we'll be doing Twitter.",
+      "zh": "今天我们来聊聊Twitter。",
+      "note": "蓝纹奶酪（blue cheese）通过霉菌发酵制成，风味独特且不易变质。"
+    },
+    {
+      "seconds": 4,
+      "en": "[Music]",
+      "zh": "[音乐]",
+      "note": ""
+    },
+    {
+      "seconds": 6,
+      "en": "Right first question Hannah.",
+      "zh": "好，先回答Hannah的第一个问题。",
+      "note": ""
+    },
+    {
+      "seconds": 10,
+      "en": "Question to those of you who are good in a kitchen.",
+      "zh": "这个问题是给那些厨房高手听的。",
+      "note": ""
+    },
+    {
+      "seconds": 12,
+      "en": "How do I mince garlic without a press?",
+      "zh": "没有压蒜器的话，怎么把蒜末剁细呢？",
+      "note": ""
+    },
+    {
+      "seconds": 14,
+      "en": "Let me show you.",
+      "zh": "我来演示一下。",
+      "note": ""
+    },
+    {
+      "seconds": 14,
+      "en": "Take the clove of garlic.",
+      "zh": "拿一瓣蒜。",
+      "note": ""
+    },
+    {
+      "seconds": 17,
+      "en": "This part of the knife on there and literally hand on there.",
+      "zh": "用刀的这一部分压在上面，然后用手压下去。",
+      "note": ""
+    },
+    {
+      "seconds": 21,
+      "en": "And that is super minced.",
+      "zh": "这样蒜就被剁得很细了。",
+      "note": ""
+    },
+    {
+      "seconds": 21,
+      "en": "Touch of salt in there and just chop it.",
+      "zh": "放点盐进去，再剁几下。",
+      "note": ""
+    },
+    {
+      "seconds": 25,
+      "en": "And within seconds you got this paste.",
+      "zh": "几秒钟后你就得到这种蒜泥。",
+      "note": ""
+    },
+    {
+      "seconds": 29,
+      "en": "Because look the salt keeps it together and it stops it from oozing out onto the board.",
+      "zh": "因为盐能让它粘在一起，不会流到案板上。",
+      "note": ""
+    },
+    {
+      "seconds": 34,
+      "en": "In 10 seconds you've got this beautiful minced garlic.",
+      "zh": "十秒钟你就得到完美剁好的蒜末了。",
+      "note": ""
+    },
+    {
+      "seconds": 38,
+      "en": "The back of the knife.",
+      "zh": "用刀背就行。",
+      "note": ""
+    },
+    {
+      "seconds": 38,
+      "en": "Good question H.",
+      "zh": "问得好，H。",
+      "note": ""
+    },
+    {
+      "seconds": 41,
+      "en": "Can cheese go bad?",
+      "zh": "奶酪会变质吗？",
+      "note": ""
+    },
+    {
+      "seconds": 43,
+      "en": "I'm eating this cheese and it tastes funny but I'm a bit hungry.",
+      "zh": "我在吃这块奶酪，味道有点怪，但我有点饿。",
+      "note": ""
+    },
+    {
+      "seconds": 45,
+      "en": "Come on Adam seriously.",
+      "zh": "Adam，你认真的吗？",
+      "note": ""
+    },
+    {
+      "seconds": 48,
+      "en": "The worst thing you can do with cheese is take it out of the fridge.",
+      "zh": "处理奶酪最糟糕的事，就是把它从冰箱拿出来。",
+      "note": ""
+    },
+    {
+      "seconds": 49,
+      "en": "Let it get up to room temperature.",
+      "zh": "让它回温到室温。",
+      "note": ""
+    },
+    {
+      "seconds": 51,
+      "en": "Leave it out for 24 hours and then refrigerate it.",
+      "zh": "放外面24小时，然后再放冰箱。",
+      "note": ""
+    },
+    {
+      "seconds": 53,
+      "en": "That's the worst thing you can do.",
+      "zh": "那是你能做的最糟糕的事。",
+      "note": ""
+    },
+    {
+      "seconds": 54,
+      "en": "Once you've taken out and it's got really runny you have to eat it or discard it.",
+      "zh": "一旦拿出来变得特别稀，就得吃掉或者扔掉。",
+      "note": ""
+    },
+    {
+      "seconds": 60,
+      "en": "This is from Giles.",
+      "zh": "这是Giles说的。",
+      "note": ""
+    },
+    {
+      "seconds": 60,
+      "en": "How do I know when my blue cheese has gone off?",
+      "zh": "我怎么知道我的蓝纹奶酪坏了？",
+      "note": ""
+    },
+    {
+      "seconds": 65,
+      "en": "So blue cheese is impossible to go off.",
+      "zh": "蓝纹奶酪其实根本不会坏。",
+      "note": ""
+    },
+    {
+      "seconds": 68,
+      "en": "It's very rare it'll turn sour.",
+      "zh": "它很少会变酸。",
+      "note": ""
+    },
+    {
+      "seconds": 70,
+      "en": "If it tastes bad get rid of it.",
+      "zh": "如果尝着不好吃就扔掉。",
+      "note": ""
+    },
+    {
+      "seconds": 70,
+      "en": "It's as simple as that.",
+      "zh": "就这么简单。",
+      "note": ""
+    },
+    {
+      "seconds": 72,
+      "en": "If you have any blue cheese left over freeze it.",
+      "zh": "如果你有蓝纹奶酪剩下来，可以冻起来。",
+      "note": ""
+    },
+    {
+      "seconds": 75,
+      "en": "Mix it into a butter and make it blue cheese butter.",
+      "zh": "拌进黄油里，做成蓝纹奶酪黄油。",
+      "note": ""
+    },
+    {
+      "seconds": 77,
+      "en": "Which is fantastic on top of a steak especially fresh off the grill.",
+      "zh": "放在牛排上特别好吃，尤其是刚从烤架上拿下来的时候。",
+      "note": ""
+    },
+    {
+      "seconds": 81,
+      "en": "Rory British food is so bad.",
+      "zh": "Rory，英国菜太难吃了。",
+      "note": ""
+    },
+    {
+      "seconds": 84,
+      "en": "Cheeky you're talking to me about food.",
+      "zh": "Cheeky，你还跟我聊吃的。",
+      "note": ""
+    },
+    {
+      "seconds": 86,
+      "en": "At least we got a decent prime minister right?",
+      "zh": "至少我们还有个不错的首相，对吧？",
+      "note": ""
+    },
+    {
+      "seconds": 88,
+      "en": "Uh Mary um how do I stop this weird egg water situation with my scrambled eggs?",
+      "zh": "呃，Mary，我炒鸡蛋怎么老出那种奇怪的蛋水？",
+      "note": ""
+    },
+    {
+      "seconds": 93,
+      "en": "Seasoning eggs at the beginning turns it gray.",
+      "zh": "一上来就给鸡蛋调味会让它变灰。",
+      "note": ""
+    },
+    {
+      "seconds": 95,
+      "en": "Season them at the end.",
+      "zh": "最后再调味。",
+      "note": ""
+    },
+    {
+      "seconds": 98,
+      "en": "That way you won't get water.",
+      "zh": "这样就不会出水了。",
+      "note": ""
+    },
+    {
+      "seconds": 101,
+      "en": "Ali um should I eat a Hot Pocket?",
+      "zh": "Ali，嗯，我要吃个热口袋饼吗？",
+      "note": ""
+    },
+    {
+      "seconds": 102,
+      "en": "Come on seriously.",
+      "zh": "拜托，说真的。",
+      "note": ""
+    },
+    {
+      "seconds": 102,
+      "en": "I mean there are so many more exciting things to eat than a freaking Hot Pocket.",
+      "zh": "我的意思是，有那么多比热口袋饼好吃的东西。",
+      "note": ""
+    },
+    {
+      "seconds": 107,
+      "en": "Damn Eband.",
+      "zh": "该死的Eband。",
+      "note": ""
+    },
+    {
+      "seconds": 107,
+      "en": "How do you grate mozzarella without crushing it?",
+      "zh": "怎么把马苏里拉奶酪擦丝还不弄碎呢？",
+      "note": ""
+    },
+    {
+      "seconds": 110,
+      "en": "That's a really good question.",
+      "zh": "这个问题问得真好。",
+      "note": ""
+    },
+    {
+      "seconds": 112,
+      "en": "Let me show you something really important.",
+      "zh": "我给你演示个很重要的技巧。",
+      "note": ""
+    },
+    {
+      "seconds": 113,
+      "en": "So mozzarella get it nice and firm.",
+      "zh": "先把马苏里拉奶酪冻硬。",
+      "note": ""
+    },
+    {
+      "seconds": 117,
+      "en": "Stick it in the freezer for 10 minutes before you start grating.",
+      "zh": "开始擦之前先放冰箱冷冻十分钟。",
+      "note": ""
+    },
+    {
+      "seconds": 120,
+      "en": "And literally use all the grater.",
+      "zh": "然后把刨子全用上。",
+      "note": ""
+    },
+    {
+      "seconds": 123,
+      "en": "Once you've started grating one side turn it over and grate more.",
+      "zh": "擦完一面再翻过来继续擦。",
+      "note": ""
+    },
+    {
+      "seconds": 125,
+      "en": "Importantly you get a much better yield.",
+      "zh": "这样出粉率会高很多。",
+      "note": ""
+    },
+    {
+      "seconds": 129,
+      "en": "Caroline what do you do when the sauce you're making has too much chili in it?",
+      "zh": "Caroline，如果你做的酱太辣了怎么办？",
+      "note": ""
+    },
+    {
+      "seconds": 135,
+      "en": "I mean first of all uh what you drinking.",
+      "zh": "首先，你在喝什么？",
+      "note": ""
+    },
+    {
+      "seconds": 137,
+      "en": "If it's too hot take half out yeah.",
+      "zh": "如果太辣就先舀出一半。",
+      "note": ""
+    },
+    {
+      "seconds": 140,
+      "en": "And then continue cooking and let it down gently uh with fresh tomato.",
+      "zh": "然后继续煮，慢慢加新鲜番茄降辣度。",
+      "note": ""
+    },
+    {
+      "seconds": 144,
+      "en": "Great way of getting rid of super hot chili.",
+      "zh": "这招能有效减轻超辣的味道。",
+      "note": ""
+    },
+    {
+      "seconds": 147,
+      "en": "Trevor right how does this make you feel?",
+      "zh": "Trevor，这让你什么感觉？",
+      "note": ""
+    },
+    {
+      "seconds": 150,
+      "en": "What is that?",
+      "zh": "这是什么？",
+      "note": ""
+    },
+    {
+      "seconds": 150,
+      "en": "Yeah that makes me feel sick.",
+      "zh": "嗯，这让我觉得有点恶心。",
+      "note": ""
+    },
+    {
+      "seconds": 152,
+      "en": "Tanner you need to see a doctor.",
+      "zh": "Tanner，你得去看看医生了。",
+      "note": ""
+    },
+    {
+      "seconds": 154,
+      "en": "Redwing fan I'm going to make boneless pork ribs.",
+      "zh": "Redwing 的粉丝，我要来做去骨猪排。",
+      "note": ""
+    },
+    {
+      "seconds": 156,
+      "en": "About four.",
+      "zh": "大概四份吧。",
+      "note": ""
+    },
+    {
+      "seconds": 156,
+      "en": "How long and what temp should I bake them at become tender?",
+      "zh": "要烤多久、多少度才能变得嫩？",
+      "note": ""
+    },
+    {
+      "seconds": 161,
+      "en": "You know the boneless pork ribs for me I cook literally for 20 minutes in a pressure cooker.",
+      "zh": "去骨猪排我一般在压力锅里煮二十分钟就行了。",
+      "note": ""
+    },
+    {
+      "seconds": 165,
+      "en": "Take them out glaze them and then broil them for about 25 minutes.",
+      "zh": "拿出来刷点酱，再烤箱高火烤二十五分钟左右。",
+      "note": ""
+    },
+    {
+      "seconds": 169,
+      "en": "It'll be so tender.",
+      "zh": "一定会超级嫩。",
+      "note": ""
+    },
+    {
+      "seconds": 169,
+      "en": "Wolf uh Chamberlin.",
+      "zh": "Wolf，呃，Chamberlin。",
+      "note": ""
+    },
+    {
+      "seconds": 172,
+      "en": "Anyone know how the hell you cook a raw ass choke?",
+      "zh": "谁知道生洋蓟到底该怎么煮啊？",
+      "note": ""
+    },
+    {
+      "seconds": 174,
+      "en": "Not asking for a friend.",
+      "zh": "不是替别人问的。",
+      "note": ""
+    },
+    {
+      "seconds": 174,
+      "en": "It's vinegar and water.",
+      "zh": "就是醋和水。",
+      "note": ""
+    },
+    {
+      "seconds": 177,
+      "en": "If there's no vinegar in the water and then they'll go black.",
+      "zh": "水里要是不放醋，它就会变黑。",
+      "note": ""
+    },
+    {
+      "seconds": 179,
+      "en": "So bring it up to the bow.",
+      "zh": "先把水烧开。",
+      "note": ""
+    },
+    {
+      "seconds": 181,
+      "en": "Put the AR.",
+      "zh": "放点醋。",
+      "note": ""
+    },
+    {
+      "seconds": 182,
+      "en": "Joke in and a teaspoon of vinegar or slice of lemon and stick that underneath the AR choke and tie it to the actual core.",
+      "zh": "把洋蓟放进去，加一小勺醋或者一片柠檬，把它压在洋蓟下面，再绑到芯上。",
+      "note": ""
+    },
+    {
+      "seconds": 189,
+      "en": "Next, Abbott Gates, right?",
+      "zh": "接下来是 Abbott Gates，对吧？",
+      "note": ""
+    },
+    {
+      "seconds": 192,
+      "en": "Can I freeze half a roast chicken I have left over?",
+      "zh": "我剩半只烤鸡，能不能冷冻？",
+      "note": ""
+    },
+    {
+      "seconds": 194,
+      "en": "No, don't do it.",
+      "zh": "别冻了。",
+      "note": ""
+    },
+    {
+      "seconds": 194,
+      "en": "The best thing to do is actually shred the roast chicken.",
+      "zh": "最好的办法是把烤鸡撕成丝。",
+      "note": ""
+    },
+    {
+      "seconds": 197,
+      "en": "Make the most amazing soup, get a great chicken stock.",
+      "zh": "做一锅超好喝的鸡汤，用它熬高汤。",
+      "note": ""
+    },
+    {
+      "seconds": 202,
+      "en": "We should have from the carcass that will last in the fridge up to five or six days.",
+      "zh": "我们从这块肉上切下来的部分，在冰箱里大概能放五到六天。",
+      "note": ""
+    },
+    {
+      "seconds": 205,
+      "en": "This is from Amy.",
+      "zh": "这是艾米的问题。",
+      "note": ""
+    },
+    {
+      "seconds": 208,
+      "en": "Cooking advice.",
+      "zh": "烹饪小建议。",
+      "note": ""
+    },
+    {
+      "seconds": 210,
+      "en": "I need to make a quantity of bashal.",
+      "zh": "我想一次做一大锅巴沙尔。",
+      "note": ""
+    },
+    {
+      "seconds": 212,
+      "en": "Would it be unwise to make it in one go?",
+      "zh": "一次全做完会不会不太明智？",
+      "note": ""
+    },
+    {
+      "seconds": 212,
+      "en": "Always try to maximize on keeping it together same thickness and the same amount of seasoning rather than several batches.",
+      "zh": "最好尽量保持同一批次的肉厚薄一致、调味均匀，而不是分好几批做。",
+      "note": ""
+    },
+    {
+      "seconds": 221,
+      "en": "Next question, Daniel.",
+      "zh": "下一个问题，丹尼尔。",
+      "note": ""
+    },
+    {
+      "seconds": 221,
+      "en": "How do you know if my mac and cheese is tender without sticking my hand in a pot?",
+      "zh": "怎么判断通心粉煮没煮熟，又不用把手伸进锅里？",
+      "note": ""
+    },
+    {
+      "seconds": 226,
+      "en": "It doesn't seem practical.",
+      "zh": "感觉这方法不太现实。",
+      "note": ""
+    },
+    {
+      "seconds": 226,
+      "en": "Of course it doesn't seem practical to perfect a mac and cheese.",
+      "zh": "当然，用完美的通心粉做法听起来也不太实际。",
+      "note": ""
+    },
+    {
+      "seconds": 229,
+      "en": "Make sure you blanch the macaroni first two thirds of the way and just allow one third to finish in the oven.",
+      "zh": "记得先把通心粉煮到七分熟，再放到烤箱里让剩下的三分熟透。",
+      "note": ""
+    },
+    {
+      "seconds": 234,
+      "en": "Next.",
+      "zh": "下一个。",
+      "note": ""
+    },
+    {
+      "seconds": 237,
+      "en": "Oh no, I have no horseradish to make my cocktail sauce.",
+      "zh": "哎呀，我没有辣根了，没法做鸡尾酒酱。",
+      "note": ""
+    },
+    {
+      "seconds": 239,
+      "en": "What do I use now?",
+      "zh": "现在该用什么呢？",
+      "note": ""
+    },
+    {
+      "seconds": 239,
+      "en": "Start off with a cocktail sauce, a touch of chili sauce, and then this little baby here.",
+      "zh": "先用鸡尾酒酱，加一点辣椒酱，再来点这个小家伙。",
+      "note": ""
+    },
+    {
+      "seconds": 245,
+      "en": "It's a wor sauce.",
+      "zh": "这是伍斯特酱。",
+      "note": ""
+    },
+    {
+      "seconds": 245,
+      "en": "That will give it the spice you need.",
+      "zh": "它能给你想要的辣味。",
+      "note": ""
+    },
+    {
+      "seconds": 249,
+      "en": "So don't worry too much about the horseradish.",
+      "zh": "所以不用太担心没辣根。",
+      "note": ""
+    },
+    {
+      "seconds": 250,
+      "en": "Glenn, does straining chicken stock through cloth help with skimming the fat?",
+      "zh": "格伦，把鸡汤用布过滤能帮去油吗？",
+      "note": ""
+    },
+    {
+      "seconds": 255,
+      "en": "No, it doesn't.",
+      "zh": "不行，没用。",
+      "note": ""
+    },
+    {
+      "seconds": 255,
+      "en": "It makes it cloudy.",
+      "zh": "它会让汤变浑浊。",
+      "note": ""
+    },
+    {
+      "seconds": 258,
+      "en": "The best thing to do on skimming a stock is to let it set and put a couple of ice cubes on top.",
+      "zh": "撇浮油最好的办法就是让它静置，然后在上面放几块冰。",
+      "note": ""
+    },
+    {
+      "seconds": 263,
+      "en": "It will bring the fat up.",
+      "zh": "这样能把油脂带上来。",
+      "note": ""
+    },
+    {
+      "seconds": 266,
+      "en": "For me, I get a slice of bread and I skim the top of my stock with a slice of bread.",
+      "zh": "我自己会拿一片面包，直接在汤面撇浮油。",
+      "note": ""
+    },
+    {
+      "seconds": 270,
+      "en": "That will absorb all the fat, leaving that beautiful stock underneath.",
+      "zh": "面包能吸走所有油脂，下面就剩漂亮的清汤了。",
+      "note": ""
+    },
+    {
+      "seconds": 273,
+      "en": "How do I caramelize my creme brulee without a cooking torch?",
+      "zh": "没有喷枪的话，我怎么给焦糖布蕾上色？",
+      "note": ""
+    },
+    {
+      "seconds": 275,
+      "en": "Take an old spoon that you don't use, put it on the gas flame, get it really nice and hot, and stick that lightly over the sugar.",
+      "zh": "找一把不用的旧勺子，放在煤气灶上烧热，烧到很烫之后，轻轻在糖面上扫一下。",
+      "note": ""
+    },
+    {
+      "seconds": 282,
+      "en": "It will caramelize it instantly.",
+      "zh": "这样能马上把糖烤焦。",
+      "note": ""
+    },
+    {
+      "seconds": 285,
+      "en": "Get it too hot, then you'll destroy the cream.",
+      "zh": "太烫的话，会把奶油给破坏掉。",
+      "note": ""
+    },
+    {
+      "seconds": 288,
+      "en": "Michael at Gordon, trying to decide between buying a Santa Japanese knife or general.",
+      "zh": "Michael 在 Gordon 那儿，正纠结要不要买一把 Santa 的日本刀，还是普通的。",
+      "note": ""
+    },
+    {
+      "seconds": 294,
+      "en": "What should I use?",
+      "zh": "我该用哪种？",
+      "note": ""
+    },
+    {
+      "seconds": 294,
+      "en": "For me, the secret of a great knife is in the handle.",
+      "zh": "对我来说，好刀的关键在于手柄。",
+      "note": ""
+    },
+    {
+      "seconds": 298,
+      "en": "So when you find a knife that's got the perfect handle, needs to be weighted.",
+      "zh": "找到手柄舒服的刀，还要够有分量。",
+      "note": ""
+    },
+    {
+      "seconds": 302,
+      "en": "The knives I use have a great handle and a firm grip.",
+      "zh": "我用的刀手柄特别好，握着很稳。",
+      "note": ""
+    },
+    {
+      "seconds": 305,
+      "en": "That's ninety percent of the work.",
+      "zh": "这占了做好工作的九成。",
+      "note": ""
+    },
+    {
+      "seconds": 305,
+      "en": "Get comfortable with the handle.",
+      "zh": "把手柄用习惯了。",
+      "note": ""
+    },
+    {
+      "seconds": 308,
+      "en": "It's the secret to great chopping.",
+      "zh": "这是切菜好坏的秘密。",
+      "note": ""
+    },
+    {
+      "seconds": 312,
+      "en": "Right, I've never tried hollandaise sauce.",
+      "zh": "对了，我从来没做过荷兰酱。",
+      "note": ""
+    },
+    {
+      "seconds": 312,
+      "en": "How do I know this is right?",
+      "zh": "我怎么知道这个做得对不对？",
+      "note": ""
+    },
+    {
+      "seconds": 314,
+      "en": "So that looks like it's a great start.",
+      "zh": "看样子，这起步已经很不错了。",
+      "note": ""
+    },
+    {
+      "seconds": 317,
+      "en": "If you ate it, it can take so much butter.",
+      "zh": "吃了它就能吸收这么多黄油。",
+      "note": ""
+    },
+    {
+      "seconds": 319,
+      "en": "If you don't lift up those egg yolks then it splits, basically breaks.",
+      "zh": "如果你不把蛋黄打散，它就会分层，基本上就坏了。",
+      "note": ""
+    },
+    {
+      "seconds": 323,
+      "en": "So ate those eggs first and make sure the heat underneath is not too hot.",
+      "zh": "所以先把这些蛋吃掉，然后确保下面的火不要太旺。",
+      "note": ""
+    },
+    {
+      "seconds": 327,
+      "en": "Question from Steve.",
+      "zh": "Steve 的问题。",
+      "note": ""
+    },
+    {
+      "seconds": 327,
+      "en": "I put too much salt with my bolognese sauce.",
+      "zh": "我放太多盐在我的肉酱里了。",
+      "note": ""
+    },
+    {
+      "seconds": 331,
+      "en": "Raw potato will draw out the salt, right?",
+      "zh": "生土豆能吸走盐，对吧？",
+      "note": ""
+    },
+    {
+      "seconds": 331,
+      "en": "No, Steve, it won't.",
+      "zh": "不会的，Steve，它吸不走。",
+      "note": ""
+    },
+    {
+      "seconds": 334,
+      "en": "First of all, take one third of beans out.",
+      "zh": "首先，把三分之一的豆子捞出来。",
+      "note": ""
+    },
+    {
+      "seconds": 337,
+      "en": "A touch of sugar and let it down with a touch of creme fraiche.",
+      "zh": "加一点糖，再放一点法式鲜奶油来冲淡。",
+      "note": ""
+    },
+    {
+      "seconds": 339,
+      "en": "Creme fraiche will lighten up the flavor and get rid of that salty taste.",
+      "zh": "法式鲜奶油能让味道变清淡，去掉咸味。",
+      "note": ""
+    },
+    {
+      "seconds": 343,
+      "en": "Right.",
+      "zh": "对。",
+      "note": ""
+    },
+    {
+      "seconds": 347,
+      "en": "Me internally trying to figure out how I would make a scotch egg.",
+      "zh": "我内心正在琢磨怎么做苏格兰蛋。",
+      "note": ""
+    },
+    {
+      "seconds": 349,
+      "en": "Do I use a hardboiled egg or do I wrap it after with the sausage?",
+      "zh": "我是用煮熟的蛋，还是先包上香肠再煮？",
+      "note": ""
+    },
+    {
+      "seconds": 354,
+      "en": "So the delicate part there, try and make a soft boiled egg.",
+      "zh": "关键在于，尽量做成溏心蛋。",
+      "note": ""
+    },
+    {
+      "seconds": 357,
+      "en": "That way it stays nice and creamy.",
+      "zh": "这样里面才会保持奶油般的质感。",
+      "note": ""
+    },
+    {
+      "seconds": 360,
+      "en": "Firm up the eggs and then lay out.",
+      "zh": "先把蛋定型，然后铺开。",
+      "note": ""
+    },
+    {
+      "seconds": 364,
+      "en": "The sausage really thinly and wrap it nice and tightly.",
+      "zh": "把香肠压得薄薄的，再紧紧地裹起来。",
+      "note": ""
+    },
+    {
+      "seconds": 366,
+      "en": "Good question.",
+      "zh": "问得好。",
+      "note": ""
+    },
+    {
+      "seconds": 366,
+      "en": "Am I a gourmet chef yet?",
+      "zh": "我现在算美食大厨了吗？",
+      "note": ""
+    },
+    {
+      "seconds": 369,
+      "en": "I mean seriously, you need to take two slices of bread and stick them on your ears and that's what you've got, an idiot sandwich.",
+      "zh": "说真的，你得拿两片面包贴在耳朵上，那你就是个白痴三明治。",
+      "note": ""
+    },
+    {
+      "seconds": 376,
+      "en": "Gordon, long shot but near enough self-taught, but still very much learning.",
+      "zh": "戈登，你学厨艺基本靠自学，水平还不错，但还在不断进步。",
+      "note": ""
+    },
+    {
+      "seconds": 382,
+      "en": "What can you best recommend to compliment a Wellington?",
+      "zh": "你觉得配惠灵顿牛排最好吃什么？",
+      "note": ""
+    },
+    {
+      "seconds": 385,
+      "en": "The most amazing cream mashed potatoes, whole roasted carrots, whole roasted parsnips glazed with honey and then finished with an amazing Madeira sauce.",
+      "zh": "超级好吃的奶油土豆泥、整根烤胡萝卜、用蜂蜜烤过再淋上绝妙马德拉酱汁的整根烤欧洲防风草。",
+      "note": ""
+    },
+    {
+      "seconds": 395,
+      "en": "Good luck, Sam.",
+      "zh": "祝你好运，山姆。",
+      "note": ""
+    },
+    {
+      "seconds": 395,
+      "en": "What should I do with the dark green part of the leeks?",
+      "zh": "韭葱深绿色的那部分该怎么处理？",
+      "note": ""
+    },
+    {
+      "seconds": 400,
+      "en": "Can't see myself throwing this bit away.",
+      "zh": "这部分我可舍不得扔掉。",
+      "note": ""
+    },
+    {
+      "seconds": 402,
+      "en": "Really good question.",
+      "zh": "问得真好。",
+      "note": ""
+    },
+    {
+      "seconds": 402,
+      "en": "This part here, okay, is the magical moment.",
+      "zh": "看这里，这可是关键时刻。",
+      "note": ""
+    },
+    {
+      "seconds": 404,
+      "en": "Take your bay leaves, place inside.",
+      "zh": "把月桂叶放进去。",
+      "note": ""
+    },
+    {
+      "seconds": 410,
+      "en": "Take your rosemary, place that inside.",
+      "zh": "再放些迷迭香。",
+      "note": ""
+    },
+    {
+      "seconds": 413,
+      "en": "A nice sprig of thyme and then look, fold that up and then from there you just roll it so it looks like this incredible teabag.",
+      "zh": "一根漂亮的百里香，然后看好了，把它折起来，再卷成一个超像茶包的样子。",
+      "note": ""
+    },
+    {
+      "seconds": 420,
+      "en": "And what that does, it puts together an amazing bouquet garni.",
+      "zh": "这样做的目的，就是做成一个美味的香草束。",
+      "note": ""
+    },
+    {
+      "seconds": 425,
+      "en": "Tie that on to your pan, put the bouquet garni in stock, and it becomes this incredible flavored beautiful teabag.",
+      "zh": "把它绑在锅上，把香草束放进高汤里，它就变成一个能给汤汁加味的漂亮茶包了。",
+      "note": ""
+    },
+    {
+      "seconds": 436,
+      "en": "Cool, right?",
+      "zh": "很酷吧？",
+      "note": ""
+    },
+    {
+      "seconds": 436,
+      "en": "Gordon, in your opinion, what size pasta sheets should I use for a good ravioli?",
+      "zh": "戈登，你觉得做好的意式饺子，面皮应该用多厚？",
+      "note": ""
+    },
+    {
+      "seconds": 441,
+      "en": "I use size three, but they feel a bit thick.",
+      "zh": "我用的是3号，但感觉有点厚。",
+      "note": ""
+    },
+    {
+      "seconds": 444,
+      "en": "Size two.",
+      "zh": "用2号。",
+      "note": ""
+    },
+    {
+      "seconds": 444,
+      "en": "So forget buying sheets, make fresh pasta and get used to cranking in that machine.",
+      "zh": "别买现成的面皮了，自己做新鲜面团，然后多用面条机压几遍。",
+      "note": ""
+    },
+    {
+      "seconds": 449,
+      "en": "But the thickness of the pasta depends on the filling.",
+      "zh": "面皮的厚度取决于馅料。",
+      "note": ""
+    },
+    {
+      "seconds": 451,
+      "en": "So if your filling is cooked, then you can go super thin.",
+      "zh": "如果馅料是熟的，那面皮就可以压得特别薄。",
+      "note": ""
+    },
+    {
+      "seconds": 454,
+      "en": "If it's undercooked, then you go super thick.",
+      "zh": "如果没熟透，那就裹厚一点。",
+      "note": ""
+    },
+    {
+      "seconds": 456,
+      "en": "This is from Mo Buck.",
+      "zh": "这是莫·巴克做的。",
+      "note": ""
+    },
+    {
+      "seconds": 458,
+      "en": "What is toon?",
+      "zh": "什么是茶巾？",
+      "note": ""
+    },
+    {
+      "seconds": 458,
+      "en": "Toon is a tea towel.",
+      "zh": "茶巾就是擦碗布。",
+      "note": ""
+    },
+    {
+      "seconds": 463,
+      "en": "It's a cloth.",
+      "zh": "就是一块布。",
+      "note": ""
+    },
+    {
+      "seconds": 463,
+      "en": "As they poach in the cloth, it protects the food.",
+      "zh": "食物裹在布里煮，能保护食材。",
+      "note": ""
+    },
+    {
+      "seconds": 468,
+      "en": "So it's basically food wrapped in a tea towel and poached.",
+      "zh": "简单来说就是把食物包在茶巾里再水煮。",
+      "note": ""
+    },
+    {
+      "seconds": 471,
+      "en": "Gordon, if I invite you to my birthday party, would you come?",
+      "zh": "戈登，如果我请你去参加我的生日派对，你会来吗？",
+      "note": ""
+    },
+    {
+      "seconds": 473,
+      "en": "I'm the shittiest and the worst guest you'll ever want at a dinner party, trust me.",
+      "zh": "我绝对是你最不想请到晚餐聚会的客人，相信我。",
+      "note": ""
+    },
+    {
+      "seconds": 480,
+      "en": "Sorry, Allison.",
+      "zh": "抱歉，艾莉森。",
+      "note": ""
+    },
+    {
+      "seconds": 480,
+      "en": "Happy birthday.",
+      "zh": "生日快乐。",
+      "note": ""
+    },
+    {
+      "seconds": 481,
+      "en": "That was Gordon Ramsay, chef support finished.",
+      "zh": "以上是戈登·拉姆齐，厨师支持结束。",
+      "note": ""
+    },
+    {
+      "seconds": 484,
+      "en": "Thank you for that.",
+      "zh": "谢谢。",
+      "note": ""
+    }
+  ]
+}

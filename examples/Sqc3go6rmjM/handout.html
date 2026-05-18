@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sénégal : arbres de vie | ARTE Reportage — Handout</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #222;
+  background: #fff;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 32px 64px;
+}
+
+/* ── Header ── */
+header {
+  border-bottom: 2px solid #222;
+  padding-bottom: 16px;
+  margin-bottom: 28px;
+}
+
+h1 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.meta {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  color: #666;
+}
+
+/* ── About the Game ── */
+.game-intro {
+  margin-bottom: 36px;
+}
+
+.section-label {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.game-intro p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+
+/* ── Key Points ── */
+.key-points {
+  margin-bottom: 36px;
+}
+
+.kp-list {
+  list-style: disc;
+  padding-left: 1.25em;
+}
+
+.kp-entry {
+  padding: 6px 0;
+}
+
+.kp-en {
+  display: block;
+  font-size: 0.9375rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.kp-zh {
+  display: block;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
+  font-size: 0.875rem;
+  color: #767676;
+  line-height: 1.5;
+}
+
+/* ── Vocab sections ── */
+.vocab-section {
+  margin-bottom: 40px;
+}
+
+.vocab-section h2 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-bottom: 6px;
+  border-bottom: 1px solid currentColor;
+  margin-bottom: 20px;
+}
+
+.vocab-section.basic h2    { color: #4d7c0f; }
+.vocab-section.intermediate h2 { color: #b45309; }
+.vocab-section.advanced h2  { color: #922b21; }
+
+/* Vocab entries */
+.vocab-list {
+  list-style: none;
+}
+
+.vocab-entry {
+  padding: 14px 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.vocab-entry:last-child {
+  border-bottom: none;
+}
+
+.entry-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.word {
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.pos {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: #999;
+}
+
+.pron {
+  display: block;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: #888;
+  margin-top: -2px;
+  margin-bottom: 2px;
+}
+
+.zh {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.8;
+  margin-left: auto;
+}
+
+.vocab-section.basic .zh    { color: #4d7c0f; }
+.vocab-section.intermediate .zh { color: #b45309; }
+.vocab-section.advanced .zh  { color: #922b21; }
+
+.def {
+  font-size: 0.9375rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 4px;
+}
+
+.ex {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: #767676;
+  line-height: 1.6;
+  padding-left: 12px;
+  border-left: 2px solid #e0e0e0;
+  margin-bottom: 2px;
+}
+
+.ex-zh {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
+  font-size: 0.8125rem;
+  color: #767676;
+  line-height: 1.6;
+  padding-left: 12px;
+  border-left: 2px solid #e0e0e0;
+}
+
+/* ── Footer ── */
+footer {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.75rem;
+  color: #767676;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+footer a { color: #767676; }
+
+/* ── Print ── */
+@media print {
+  @page { margin: 15mm 12mm; }
+  body {
+    max-width: none;
+    padding: 0;
+    font-size: 11px;
+    columns: 2;
+    column-gap: 10mm;
+  }
+  header {
+    column-span: all;
+    margin-bottom: 16px;
+  }
+  h1 { font-size: 1.1rem; }
+  footer {
+    column-span: all;
+    margin-top: 24px;
+  }
+  .game-intro {
+    column-span: all;
+    margin-bottom: 12px;
+  }
+  .game-intro p { font-size: 0.75rem; line-height: 1.5; }
+  .vocab-section { break-inside: avoid-column; }
+  .vocab-entry { break-inside: avoid; }
+  footer a::after { content: " (" attr(href) ")"; font-size: 0.7rem; }
+  footer::after {
+    content: "Page " counter(page) " of " counter(pages);
+    font-size: 0.7rem;
+    color: #aaa;
+  }
+}
+
+/* ── Back button ── */
+#back-btn {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: #eee8d5;
+  border: 1px solid #ddd6c1;
+  border-radius: 6px;
+  color: #073642;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  z-index: 10;
+}
+#back-btn .material-symbols-outlined { font-size: 1.5rem; }
+#back-btn:hover { background: #ddd6c1; }
+#back-btn:focus-visible { outline: 2px solid #073642; outline-offset: 2px; }
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+</head>
+<body>
+
+<a id="back-btn" href="recording.html" title="Back to Recording"><span class="material-symbols-outlined">arrow_back</span></a>
+
+<header>
+  <h1>Sénégal : arbres de vie | ARTE Reportage</h1>
+  <div class="meta">ARTE &nbsp;·&nbsp; 12 min &nbsp;·&nbsp; 2026-05-18</div>
+</header>
+
+<section class="game-intro">
+  <div class="section-label">About This Video</div>
+  <p>Cette vidéo ARTE présente Jean GOP et l&#x27;association Nebdaï qui œuvrent pour restaurer les mangroves du delta du Saloum au Sénégal. On y découvre comment des enfants, des femmes et des communautés locales plantent des arbres pour protéger l&#x27;environnement, soutenir la pêche et améliorer leur quotidien. Le reportage regorge de vocabulaire écologique et agricole très utile pour les apprenants de français.</p>
+</section>
+
+<section class="key-points">
+  <div class="section-label">Key Points</div>
+  <ul class="kp-list"><li class="kp-entry"><span class="kp-en">Les palétuviers ont la capacité unique de produire des racines à la place de branches.</span><span class="kp-zh" lang="zh">맹그로브 나무는 가지 대신 뿌리를 만드는 특별한 능력을 가지고 있다.</span></li>
+<li class="kp-entry"><span class="kp-en">L&#x27;association Nebdaï implique activement les enfants dans les opérations de reboisement.</span><span class="kp-zh" lang="zh">네브다이 협회는 어린이들을 나무 심기 활동에 적극 참여시킨다.</span></li>
+<li class="kp-entry"><span class="kp-en">La mangrove sert de nursery naturelle pour les poissons et les fruits de mer.</span><span class="kp-zh" lang="zh">맹그로브는 물고기와 해산물의 자연 보육원 역할을 한다.</span></li>
+<li class="kp-entry"><span class="kp-en">Les femmes du village cultivent en agroforesterie pour diversifier leurs revenus.</span><span class="kp-zh" lang="zh">마을 여성들은 농림 복합 농업으로 수입을 다양화한다.</span></li>
+<li class="kp-entry"><span class="kp-en">Le Moringa est appelé « arbre de vie » pour sa résistance et sa valeur nutritive.</span><span class="kp-zh" lang="zh">모링가는 가뭄 저항성과 영양가 때문에 &#x27;생명의 나무&#x27;로 불린다.</span></li>
+<li class="kp-entry"><span class="kp-en">L&#x27;éducation environnementale est au cœur des projets de l&#x27;association tout au long de l&#x27;année.</span><span class="kp-zh" lang="zh">환경 교육은 협회의 연중 프로젝트 핵심이다.</span></li></ul>
+</section>
+
+<section class="vocab-section basic">
+  <h2>Basic</h2>
+  <ul class="vocab-list"><li class="vocab-entry"><div class="entry-head"><span class="word">charbon</span><span class="pos">nom</span><span class="zh" lang="zh">숯</span></div><span class="pron">/ʃaʁ.bɔ̃/</span><p class="def">Matériel utilisé pour faire du feu</p><p class="ex">"Ça, c&#x27;est le charbon de paille qui est fait à base d&#x27;argile et de paille"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">paille</span><span class="pos">nom</span><span class="zh" lang="zh">짚</span></div><span class="pron">/paj/</span><p class="def">Tige sèche des céréales après la moisson</p><p class="ex">"Ça, c&#x27;est le charbon de paille qui est fait à base d&#x27;argile et de paille"</p></li></ul>
+</section>
+
+<section class="vocab-section intermediate">
+  <h2>Intermediate</h2>
+  <ul class="vocab-list"><li class="vocab-entry"><div class="entry-head"><span class="word">palétuvier</span><span class="pos">nom</span><span class="zh" lang="zh">맹그로브 나무</span></div><span class="pron">/pa.le.ty.vje/</span><p class="def">Arbre tropical qui pousse dans les eaux salées des mangroves</p><p class="ex">"Ce qui est incroyable avec ces palétuviers, c&#x27;est que comment cet arbre-là"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">bourgeon</span><span class="pos">nom</span><span class="zh" lang="zh">새싹</span></div><span class="pron">/buʁ.ʒɔ̃/</span><p class="def">Petit organe qui donne naissance à une branche, une feuille ou une fleur</p><p class="ex">"à un moment donné il a décidé que son bourgeon n&#x27;allait pas être une branche"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">écosystème</span><span class="pos">nom</span><span class="zh" lang="zh">생태계</span></div><span class="pron">/e.ko.sis.tɛm/</span><p class="def">Ensemble des êtres vivants et de leur environnement</p><p class="ex">"On est dans l&#x27;écosystème de mangrove du delta du Saloum"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">pédagogique</span><span class="pos">adj</span><span class="zh" lang="zh">교육적인</span></div><span class="pron">/pe.da.ɡɔ.ʒik/</span><p class="def">Qui a un but éducatif ou d&#x27;enseignement</p><p class="ex">"Et ont un caractère pédagogique"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">brise-vent</span><span class="pos">nom</span><span class="zh" lang="zh">바람막이 나무</span></div><span class="pron">/bʁiz.vɑ̃/</span><p class="def">Arbre ou rangée d&#x27;arbres plantés pour protéger des vents</p><p class="ex">"Elles ont planté des milliers d&#x27;arbres, des brise-vents, des arbres fruitiers"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">sécheresse</span><span class="pos">nom</span><span class="zh" lang="zh">가뭄</span></div><span class="pron">/se.ʃɛ.ʁɛs/</span><p class="def">Période prolongée sans pluie</p><p class="ex">"Parce qu&#x27;il est très résistant à la sécheresse"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">commercialisés</span><span class="pos">verbe</span><span class="zh" lang="zh">판매되다</span></div><span class="pron">/kɔ.mɛʁ.sja.li.ze/</span><p class="def">Mis en vente sur le marché</p><p class="ex">"arrivent en boutique pour y être commercialisés dès l&#x27;après-midi"</p></li></ul>
+</section>
+
+<section class="vocab-section advanced">
+  <h2>Advanced</h2>
+  <ul class="vocab-list"><li class="vocab-entry"><div class="entry-head"><span class="word">reboisement</span><span class="pos">nom</span><span class="zh" lang="zh">재조림</span></div><span class="pron">/ʁə.bwa.zə.mɑ̃/</span><p class="def">Action de replanter des arbres sur une zone déboisée</p><p class="ex">"ce qui nous intéresse beaucoup plus que la plantation en tant que tel, c&#x27;est de transmettre l&#x27;amour de l&#x27;écosystème du palétuvier, de l&#x27;art de la mangrove aux enfants"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">propagule</span><span class="pos">nom</span><span class="zh" lang="zh">번식체</span></div><span class="pron">/pʁɔ.pa.ɡyl/</span><p class="def">Partie d&#x27;une plante capable de se reproduire et de donner un nouvel arbre</p><p class="ex">"Les propagules, c&#x27;est-à-dire les plans de palétuvier"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">agroforesterie</span><span class="pos">nom</span><span class="zh" lang="zh">농림복합농업</span></div><span class="pron">/a.ɡʁo.fɔ.ʁɛs.tʁi/</span><p class="def">Système agricole combinant arbres et cultures sur la même parcelle</p><p class="ex">"Nebida a créé une parcelle d&#x27;un hectare et demi en agroforesterie"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">fourragers</span><span class="pos">adj</span><span class="zh" lang="zh">사료용</span></div><span class="pron">/fu.ʁa.ʒe/</span><p class="def">Qui sert de nourriture pour les animaux</p><p class="ex">"avec les arbres fourragers qui nous permet de vendre ou de donner à manger"</p></li>
+<li class="vocab-entry"><div class="entry-head"><span class="word">antioxydants</span><span class="pos">nom</span><span class="zh" lang="zh">항산화물질</span></div><span class="pron">/ɑ̃.ti.ɔk.si.dɑ̃/</span><p class="def">Substances qui protègent les cellules contre l&#x27;oxydation</p><p class="ex">"Dans ses feuilles, on trouve des vitamines, du calcium, du fer, des antioxydants"</p></li></ul>
+</section>
+
+<footer>
+  <a href="https://www.youtube.com/watch?v=Sqc3go6rmjM">https://www.youtube.com/watch?v=Sqc3go6rmjM</a>
+  <span>Generated 2026-05-18</span>
+</footer>
+
+<script>
+if (window.location.protocol !== 'file:') {
+  document.getElementById('back-btn').style.display = 'flex';
+}
+</script>
+</body>
+</html>

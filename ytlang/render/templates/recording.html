@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{VIDEO_TITLE}}</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fdf6e3;
+  --panel: #eee8d5;
+  --border: #ddd6c1;
+  --text-primary: #073642;
+  --text-body: #586e75;
+  --text-muted: #93a1a1;
+  /* level colors — updated by JS */
+  --level-color: #eee8d5;
+  --level-deep: #ddd6c1;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text-body);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+body {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-columns: 3fr 1fr;
+  height: 100vh;
+}
+
+/* ── Video player ── */
+#player-wrap {
+  grid-row: 1;
+  grid-column: 1;
+  background: #000;
+  position: relative;
+}
+
+#player-wrap iframe,
+#player-wrap > div {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ── Transcript strip (right sidebar, player height) ── */
+#transcript-strip {
+  grid-row: 1;
+  grid-column: 2;
+  background: var(--panel);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.t-line {
+  flex: 1;
+  padding: 8px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: background 0.1s;
+  overflow: hidden;
+}
+
+.t-line:hover { background: rgba(0,0,0,0.03); }
+
+.t-line.prev, .t-line.next {
+  opacity: 0.4;
+}
+
+.t-line.active {
+  background: var(--bg);
+  border-left: 4px solid var(--level-color);
+}
+
+.t-ts {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+}
+
+.t-line.active .t-ts {
+  color: var(--text-body);
+}
+
+.t-en {
+  font-size: 0.875rem;
+  color: var(--text-body);
+  line-height: 1.6;
+}
+
+.t-line.active .t-en {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.t-zh {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.t-line.active .t-zh {
+  font-size: 0.9375rem;
+  color: var(--text-body);
+}
+
+/* ── Vocab panel (bottom bar under player) ── */
+#vocab-panel {
+  grid-row: 2;
+  grid-column: 1;
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  min-height: 110px;
+  max-height: 160px;
+  overflow: hidden;
+}
+
+/* Level selector */
+#level-selector {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 10px 7px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.level-btn {
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--panel);
+  color: var(--text-muted);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.level-btn.active {
+  background: var(--level-color);
+  color: #fdf6e3;
+  border-color: var(--level-color);
+}
+
+.level-btn[data-level="all"].active {
+  background: var(--border);
+  color: var(--text-body);
+  border-color: var(--border);
+}
+
+/* Vocab strip cards */
+.v-line {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: background 0.1s;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.v-line:hover { background: rgba(0,0,0,0.03); }
+
+.v-line.prev, .v-line.next {
+  opacity: 0.4;
+}
+
+.v-line.active {
+  background: var(--bg);
+  border-left: 4px solid var(--level-color);
+  transition: border-color 0.2s;
+}
+
+/* Word + zh on same row */
+.v-main {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.v-word {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--level-deep);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.v-line.active .v-word {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.v-pos {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.v-pron {
+  font-size: 0.75rem;
+  font-weight: 400;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-left: 6px;
+}
+
+.v-zh {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
+  font-size: 1rem;
+  color: var(--text-body);
+  line-height: 1.4;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.v-line.active .v-zh {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--text-primary);
+}
+
+/* ── Page nav buttons ── */
+#page-nav {
+  grid-row: 2;
+  grid-column: 2;
+  display: flex;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  z-index: 998;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  background: var(--panel);
+  border: none;
+  border-radius: 0;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.icon-btn .material-symbols-outlined { font-size: 2rem; }
+.icon-btn + .icon-btn { border-left: 1px solid var(--border); }
+.icon-btn:hover { background: var(--text-primary); color: var(--bg); }
+
+/* ── Recording indicator ── */
+#rec-dot {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e74c3c;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 999;
+  pointer-events: none;
+}
+body.recording #rec-dot {
+  opacity: 1;
+  animation: rec-pulse 1.2s ease-in-out infinite;
+}
+@keyframes rec-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ── Utilities ── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+:focus-visible { outline: 2px solid var(--text-primary); outline-offset: 2px; }
+.level-btn:focus-visible, .icon-btn:focus-visible { outline-offset: 0; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+</head>
+<body>
+
+<div id="rec-dot"></div>
+<div role="status" aria-live="polite" id="rec-status" class="sr-only"></div>
+<div id="page-nav">
+  <a href="handout.html" class="icon-btn" aria-label="Handout"><span class="material-symbols-outlined" aria-hidden="true">description</span></a>
+  <a href="transcript.html" class="icon-btn" aria-label="Transcript"><span class="material-symbols-outlined" aria-hidden="true">speaker_notes</span></a>
+  <a href="quiz.html" class="icon-btn" aria-label="Quiz"><span class="material-symbols-outlined" aria-hidden="true">quiz</span></a>
+</div>
+
+<div id="player-wrap">
+  <div id="yt-iframe"></div>
+</div>
+
+<div id="transcript-strip">
+  <div class="t-line prev" id="t-prev" role="button" tabindex="0" aria-label="Previous line"></div>
+  <div class="t-line active" id="t-active" role="button" tabindex="0" aria-label="Current line — click to replay"></div>
+  <div class="t-line next" id="t-next" role="button" tabindex="0" aria-label="Next line"></div>
+</div>
+
+<div id="vocab-panel">
+  <div id="level-selector">
+    <button class="level-btn active" data-level="all">All</button>
+    <button class="level-btn" data-level="basic">Basic</button>
+    <button class="level-btn" data-level="intermediate">Inter</button>
+    <button class="level-btn" data-level="advanced">Adv</button>
+  </div>
+
+  <div class="v-line prev" id="v-prev" role="button" tabindex="0" aria-label="Previous word"></div>
+  <div class="v-line active" id="v-active" role="button" tabindex="0" aria-label="Current word — click to replay example"></div>
+  <div class="v-line next" id="v-next" role="button" tabindex="0" aria-label="Next word"></div>
+</div>
+
+<script type="application/json" id="vocab-data">{{VOCAB_DATA}}</script>
+<script type="application/json" id="transcript-data">{{TRANSCRIPT_DATA}}</script>
+
+<script>
+const VIDEO_ID = "{{VIDEO_ID}}";
+
+{{LEVEL_COLORS_JS}}
+
+const VOCAB_DATA = JSON.parse(document.getElementById('vocab-data').textContent);
+const TRANSCRIPT_DATA = JSON.parse(document.getElementById('transcript-data').textContent);
+
+// ── State ──
+let currentLevel = localStorage.getItem('ytlang-level') || 'all';
+let filteredVocab = [];
+let cardIndex = 0;
+let manualNavAt = 0;
+let ytPlayer = null;
+
+// ── Screen recording ──
+let mediaRecorder = null;
+let recChunks = [];
+
+async function startRecording() {
+  const stream = await navigator.mediaDevices.getDisplayMedia({
+    video: { width: { ideal: 1920 }, height: { ideal: 1080 }, frameRate: { ideal: 60 } },
+    audio: true
+  });
+
+  const mimeType = 'video/webm;codecs=vp9';
+  const ext = 'webm';
+
+  const date = new Date().toISOString().slice(0, 10);
+  const slug = document.title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60);
+  const filename = `${date}_${slug}_${VIDEO_ID}.${ext}`;
+
+  mediaRecorder = new MediaRecorder(stream, {
+    mimeType,
+    videoBitsPerSecond: 8_000_000
+  });
+
+  // Stream directly to disk via File System Access API to avoid memory limits on long recordings
+  let writableStream = null;
+  try {
+    const fileHandle = await window.showSaveFilePicker({
+      suggestedName: filename,
+      types: [{ description: 'WebM Video', accept: { 'video/webm': ['.webm'] } }],
+    });
+    writableStream = await fileHandle.createWritable();
+  } catch {
+    // User cancelled picker or API unavailable — fall back to in-memory
+  }
+
+  recChunks = [];
+  mediaRecorder.ondataavailable = async e => {
+    if (!e.data.size) return;
+    if (writableStream) {
+      await writableStream.write(e.data);
+    } else {
+      recChunks.push(e.data);
+    }
+  };
+  mediaRecorder.onstop = async () => {
+    if (writableStream) {
+      await writableStream.close();
+    } else {
+      const blob = new Blob(recChunks, { type: mimeType });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    }
+    document.body.classList.remove('recording');
+    document.getElementById('rec-status').textContent = 'Recording stopped';
+    stream.getTracks().forEach(t => t.stop());
+  };
+  mediaRecorder.start(5000); // flush to disk every 5 s
+  document.body.classList.add('recording');
+  document.getElementById('rec-status').textContent = 'Recording started';
+}
+
+function stopRecording() {
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+}
+
+// ── YT IFrame API ──
+window.onYouTubeIframeAPIReady = function () {
+  ytPlayer = new YT.Player('yt-iframe', {
+    videoId: VIDEO_ID,
+    width: '100%',
+    height: '100%',
+    playerVars: {
+      rel: 0,
+      controls: 1,
+      modestbranding: 1
+    },
+    events: {
+      onReady: () => {
+        const seekTo = new URLSearchParams(location.search).get('t');
+        if (seekTo) doSeek(Number(seekTo));
+        startPolling();
+      },
+      onStateChange: (event) => {
+        if (event.data === YT.PlayerState.ENDED) stopRecording();
+      }
+    }
+  });
+};
+
+function loadYTApi() {
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+}
+loadYTApi();
+
+function doSeek(seconds) {
+  if (ytPlayer && ytPlayer.seekTo) ytPlayer.seekTo(seconds, true);
+}
+
+// ── Level selector ──
+function setLevel(level) {
+  currentLevel = level;
+  localStorage.setItem('ytlang-level', level);
+  applyLevelColor(level);
+
+  document.querySelectorAll('.level-btn').forEach(btn => {
+    const isActive = btn.dataset.level === level;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+
+  filteredVocab = level === 'all'
+    ? [...VOCAB_DATA].sort((a, b) => a.example_seconds - b.example_seconds)
+    : VOCAB_DATA.filter(v => v.level === level)
+                .sort((a, b) => a.example_seconds - b.example_seconds);
+
+  cardIndex = 0;
+  renderVocabStrip();
+}
+
+document.querySelectorAll('.level-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lvl = btn.dataset.level;
+    if (lvl === currentLevel && lvl !== 'all') {
+      setLevel('all');
+    } else {
+      setLevel(lvl);
+    }
+  });
+});
+
+// ── Vocab strip ──
+{{FMT_SECONDS_JS}}
+
+function renderVocabStrip() {
+  function fillVocab(el, v) {
+    if (!v) { el.innerHTML = ''; return null; }
+    const c = LEVEL_COLORS[v.level] || LEVEL_COLORS.all;
+    const pron = v.pronunciation ? `<span class="v-pron">${escHtml(v.pronunciation)}</span>` : '';
+    el.innerHTML =
+      `<span class="v-main"><span class="v-word" style="color:${c.deep}">${escHtml(v.word)}</span><span class="v-zh" lang="zh">${escHtml(v.zh)}</span></span>` +
+      `<span class="v-pos">${escHtml(v.pos)}${pron}</span>`;
+    return c;
+  }
+
+  fillVocab(document.getElementById('v-prev'), filteredVocab[cardIndex - 1] || null);
+  const activeColor = fillVocab(document.getElementById('v-active'), filteredVocab[cardIndex] || null);
+  fillVocab(document.getElementById('v-next'), filteredVocab[cardIndex + 1] || null);
+
+  if (activeColor) {
+    document.getElementById('v-active').style.borderLeftColor = activeColor.color;
+  }
+}
+
+function navigateCard(delta) {
+  const next = cardIndex + delta;
+  if (next >= 0 && next < filteredVocab.length) {
+    manualNavAt = Date.now();
+    cardIndex = next;
+    renderVocabStrip();
+    doSeek(filteredVocab[cardIndex].example_seconds);
+  }
+}
+
+function togglePlayback() {
+  if (ytPlayer && ytPlayer.getPlayerState) {
+    ytPlayer.getPlayerState() === 1 ? ytPlayer.pauseVideo() : ytPlayer.playVideo();
+  }
+}
+
+function addActivation(id, fn) {
+  const el = document.getElementById(id);
+  el.addEventListener('click', fn);
+  el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } });
+}
+addActivation('v-prev', () => navigateCard(-1));
+addActivation('v-next', () => navigateCard(1));
+addActivation('v-active', () => {
+  const v = filteredVocab[cardIndex];
+  if (v) { manualNavAt = Date.now(); doSeek(v.example_seconds); }
+});
+
+// ── Transcript strip ──
+let activeTranscriptIdx = -1;
+
+function renderTranscriptStrip(idx) {
+  if (idx === activeTranscriptIdx) return;
+  activeTranscriptIdx = idx;
+
+  function fillLine(el, entry) {
+    if (!entry) { el.innerHTML = ''; return; }
+    const s = entry.seconds;
+    const ts = fmtSeconds(s);
+    el.innerHTML = `<span class="t-ts">${ts}</span><span class="t-en">${escHtml(entry.en)}</span><span class="t-zh" lang="zh">${escHtml(entry.zh)}</span>`;
+    el.onclick = () => doSeek(s);
+  }
+
+  fillLine(document.getElementById('t-prev'), TRANSCRIPT_DATA[idx - 1] || null);
+  fillLine(document.getElementById('t-active'), TRANSCRIPT_DATA[idx] || null);
+  fillLine(document.getElementById('t-next'), TRANSCRIPT_DATA[idx + 1] || null);
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── Polling ──
+function startPolling() {
+  setInterval(() => {
+    if (!ytPlayer || !ytPlayer.getCurrentTime) return;
+    const t = ytPlayer.getCurrentTime();
+    updateTranscript(t);
+    updateVocabAutoAdvance(t);
+  }, 500);
+}
+
+function updateTranscript(t) {
+  let idx = 0;
+  for (let i = 0; i < TRANSCRIPT_DATA.length; i++) {
+    if (TRANSCRIPT_DATA[i].seconds <= t) idx = i;
+    else break;
+  }
+  renderTranscriptStrip(idx);
+}
+
+function updateVocabAutoAdvance(t) {
+  if (!filteredVocab.length) return;
+  if (Date.now() - manualNavAt < 5000) return;
+
+  const next = cardIndex + 1;
+  if (next < filteredVocab.length && t >= filteredVocab[next].example_seconds) {
+    cardIndex = next;
+    renderVocabStrip();
+  }
+}
+
+// ── Keyboard shortcuts ──
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+  switch (e.key) {
+    case ' ':
+      e.preventDefault();
+      togglePlayback();
+      break;
+    case 'ArrowLeft':
+      e.preventDefault();
+      navigateCard(-1);
+      break;
+    case 'ArrowRight':
+      e.preventDefault();
+      navigateCard(1);
+      break;
+    case 'r': case 'R':
+      if (!mediaRecorder || mediaRecorder.state === 'inactive') startRecording();
+      else stopRecording();
+      break;
+    case 'j': case 'J':
+      doSeek(ytPlayer.getCurrentTime() - 5);
+      break;
+    case 'l': case 'L':
+      doSeek(ytPlayer.getCurrentTime() + 5);
+      break;
+    case 'k': case 'K':
+      togglePlayback();
+      break;
+    default:
+      if (e.key >= '1' && e.key <= '9') {
+        const speeds = [0.5, 0.6, 0.7, 0.8, 1.0, 1.25, 1.5, 1.75, 2.0];
+        const idx = parseInt(e.key) - 1;
+        if (ytPlayer && ytPlayer.setPlaybackRate) ytPlayer.setPlaybackRate(speeds[idx]);
+      }
+  }
+});
+
+// ── Transcript strip keyboard ──
+['t-prev', 't-active', 't-next'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); document.getElementById(id).click(); }
+  });
+});
+
+// ── Init ──
+setLevel(currentLevel);
+renderTranscriptStrip(0);
+</script>
+</body>
+</html>
