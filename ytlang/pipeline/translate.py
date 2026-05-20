@@ -9,7 +9,7 @@ import json
 from typing import List
 
 from ytlang import config
-from ytlang.pipeline.utils import make_client
+from ytlang.pipeline.utils import make_client, parse_llm_json
 from ytlang.languages import DEFAULT_SOURCE_LANG, DEFAULT_NATIVE_LANG
 
 BATCH_SIZE = 20
@@ -22,7 +22,7 @@ def _translate_batch(client, texts: List[str], translate_prompt: str) -> List[st
     chat.append(user(json.dumps({"texts": texts}, ensure_ascii=False)))
 
     response = chat.sample()
-    data = json.loads(response.content)
+    data = parse_llm_json(response.content)
     result = data.get("translations", [])
 
     # Length guard: pad with original English if model returned fewer items

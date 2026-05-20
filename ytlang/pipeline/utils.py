@@ -15,10 +15,61 @@ def make_client():
 
 
 def parse_llm_json(raw: str) -> dict | list:
-    """Parse LLM response text as JSON, stripping code fences and trailing commas."""
+    """Parse LLM response text as JSON, stripping code fences and trailing commas.
+
+    If the JSON is truncated (unterminated strings/brackets), attempts repair
+    by closing open strings, removing the incomplete trailing element, and
+    balancing brackets.
+    """
     cleaned = re.sub(r"^```[a-z]*\n?|\n?```$", "", raw.strip())
     cleaned = re.sub(r",\s*([}\]])", r"\1", cleaned)
-    return json.loads(cleaned)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        repaired = _repair_truncated_json(cleaned)
+        return json.loads(repaired)
+
+
+def _repair_truncated_json(s: str) -> str:
+    """Best-effort repair of truncated JSON by closing open structures."""
+    in_string = False
+    last_quote = -1
+    stack: list[str] = []
+    i = 0
+    while i < len(s):
+        c = s[i]
+        if c == '\\' and in_string:
+            i += 2
+            continue
+        if c == '"':
+            in_string = not in_string
+            last_quote = i
+        elif not in_string:
+            if c in '{[':
+                stack.append('}' if c == '{' else ']')
+            elif c in '}]' and stack:
+                stack.pop()
+        i += 1
+
+    if in_string and last_quote >= 0:
+        # Close the open string, then remove the incomplete trailing element
+        s = s[:last_quote] + '"'
+        s = re.sub(r',\s*"[^"]*"\s*$', '', s)
+        # Rescan brackets on the shortened string
+        stack.clear()
+        in_str = False
+        for c in s:
+            if c == '"':
+                in_str = not in_str
+            elif not in_str:
+                if c in '{[':
+                    stack.append('}' if c == '{' else ']')
+                elif c in '}]' and stack:
+                    stack.pop()
+
+    s = re.sub(r',\s*$', '', s.rstrip())
+    s += ''.join(reversed(stack))
+    return s
 
 
 def parse_video_id(url: str) -> str:

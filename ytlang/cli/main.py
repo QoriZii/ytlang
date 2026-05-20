@@ -240,21 +240,12 @@ def _run_reprocess(
         ]
 
     if do_analyze:
-        raw_path = out / "raw.json"
-        if not raw_path.exists():
-            typer.echo(f"Error: {raw_path} not found. Re-run `prep` to generate it.", err=True)
-            raise typer.Exit(1)
-        raw = json.loads(raw_path.read_text(encoding="utf-8"))
-        analyze_transcript = [
-            TranscriptEntry(seconds=e["seconds"], en=e["text"], zh="")
-            for e in raw
-        ]
         typer.echo(f"  Analyzing with {config.XAI_MODEL}…")
-        video_brief, key_points, quiz_questions, vocab, _ = analyze(
+        video_brief, key_points, quiz_questions, vocab, annotated = analyze(
             title=lesson.title,
             channel=lesson.channel,
             duration=lesson.duration,
-            transcript=analyze_transcript,
+            transcript=lesson.transcript,
             source_lang=sl,
             native_lang=nl,
         )
@@ -262,6 +253,7 @@ def _run_reprocess(
         lesson.key_points = key_points
         lesson.quiz_questions = quiz_questions
         lesson.vocab = vocab
+        lesson.transcript = annotated
 
     lesson.generated_date = datetime.date.today().isoformat()
     lesson.save(lesson_path)

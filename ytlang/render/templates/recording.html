@@ -594,22 +594,26 @@ function startPolling() {
   }, 500);
 }
 
-function updateTranscript(t) {
+function findActiveIndex(data, t, key) {
   let idx = 0;
-  for (let i = 0; i < TRANSCRIPT_DATA.length; i++) {
-    if (TRANSCRIPT_DATA[i].seconds <= t) idx = i;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i][key] <= t) idx = i;
     else break;
   }
-  renderTranscriptStrip(idx);
+  return idx;
+}
+
+function updateTranscript(t) {
+  renderTranscriptStrip(findActiveIndex(TRANSCRIPT_DATA, t, 'seconds'));
 }
 
 function updateVocabAutoAdvance(t) {
   if (!filteredVocab.length) return;
   if (Date.now() - manualNavAt < 5000) return;
 
-  const next = cardIndex + 1;
-  if (next < filteredVocab.length && t >= filteredVocab[next].example_seconds) {
-    cardIndex = next;
+  const best = findActiveIndex(filteredVocab, t, 'example_seconds');
+  if (best !== cardIndex) {
+    cardIndex = best;
     renderVocabStrip();
   }
 }

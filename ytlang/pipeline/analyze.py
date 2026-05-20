@@ -74,7 +74,11 @@ def analyze(
         native_lang_name=lang_name(native_lang),
     )
 
-    chat = client.chat.create(model=config.XAI_MODEL)
+    chat = client.chat.create(
+        model=config.XAI_MODEL,
+        max_tokens=16384,
+        response_format="json_object",
+    )
     chat.append(system(prompts["analyze_system"]))
     chat.append(user(prompt))
     response = chat.sample()
