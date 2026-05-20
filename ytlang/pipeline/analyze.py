@@ -38,11 +38,11 @@ def analyze(
     transcript: List[TranscriptEntry],
     source_lang: str = DEFAULT_SOURCE_LANG,
     native_lang: str = DEFAULT_NATIVE_LANG,
-) -> Tuple[str, List[dict], List[dict], List[VocabEntry], List[TranscriptEntry]]:
-    """Call Grok API to produce video_brief, key_points, quiz_questions, vocab, and annotated transcript.
+) -> Tuple[str, List[dict], List[dict], List[dict], List[VocabEntry], List[TranscriptEntry]]:
+    """Call Grok API to produce video_brief, key_points, quiz_questions, situation_cards, vocab, and annotated transcript.
 
     Returns:
-        (video_brief, key_points, quiz_questions, vocab_entries, transcript_entries_with_notes)
+        (video_brief, key_points, quiz_questions, situation_cards, vocab_entries, transcript_entries_with_notes)
 
     Raises:
         ValueError: if XAI_API_KEY is not set
@@ -91,6 +91,8 @@ def analyze(
 
     quiz_questions: list[dict] = data.get("quiz_questions", [])
 
+    situation_cards: list[dict] = data.get("situation_cards", [])
+
     vocab = [VocabEntry.from_dict(v) for v in data.get("vocab", [])]
 
     # Build a seconds→note lookup from transcript_notes
@@ -110,4 +112,4 @@ def analyze(
         for e in transcript
     ]
 
-    return video_brief, key_points, quiz_questions, vocab, annotated
+    return video_brief, key_points, quiz_questions, situation_cards, vocab, annotated

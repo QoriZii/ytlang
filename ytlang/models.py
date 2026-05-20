@@ -61,6 +61,7 @@ class LessonData:
     native_lang: str = "zh"
     key_points: List[Dict[str, Any]] = field(default_factory=list)
     quiz_questions: List[Dict[str, Any]] = field(default_factory=list)
+    situation_cards: List[Dict[str, Any]] = field(default_factory=list)
     vocab: List[VocabEntry] = field(default_factory=list)
     transcript: List[TranscriptEntry] = field(default_factory=list)
 
@@ -89,6 +90,7 @@ class LessonData:
             native_lang=raw.get("native_lang", "zh"),
             key_points=raw.get("key_points", []),
             quiz_questions=raw.get("quiz_questions", []),
+            situation_cards=raw.get("situation_cards", []),
             vocab=[VocabEntry.from_dict(v) for v in raw.get("vocab", [])],
             transcript=[TranscriptEntry.from_dict(t) for t in raw.get("transcript", [])],
         )

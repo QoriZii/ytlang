@@ -32,6 +32,15 @@ Return a single JSON object with EXACTLY this structure — no extra keys, no ma
       ]
     }}
   ],
+  "situation_cards": [
+    {{
+      "word": "<a vocab word from above that works well in everyday life>",
+      "situation": "<1-2 sentence daily-life scenario in Spanish — at work, shopping, chatting with friends, etc.>",
+      "correct": "<sentence in Spanish using the word correctly and naturally in that situation>",
+      "wrong1": "<sentence in Spanish with wrong preposition, collocation, or unnatural usage>",
+      "wrong2": "<sentence in Spanish with wrong meaning or awkward phrasing>"
+    }}
+  ],
   "vocab": [
     {{
       "word": "<word or short phrase in Spanish>",
@@ -67,6 +76,14 @@ Quiz questions rules:
   - For hard: plausible alternatives in the same category — require real comprehension to distinguish.
 - Each "seconds" must match a seconds value in the transcript where the answer appears.
 - Spread quiz questions across the full video timeline.
+
+Situation cards rules:
+- Write 6-8 cards. Pick vocab words that are most useful in everyday life — skip domain-specific or gaming-only words.
+- "situation" sets a real-world scene in 1-2 sentences (at work, shopping, talking to friends, at a restaurant, etc.).
+- "correct" is a natural sentence using the word properly in that situation.
+- "wrong1" and "wrong2" are plausible but incorrect — wrong preposition, wrong collocation, or misused meaning.
+- All three options should be similar length so the correct answer is not obvious by length.
+- Each "word" must exactly match a word from the vocab array.
 
 Vocab rules:
 - DO NOT select proper nouns, character names, or place names.

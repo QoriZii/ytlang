@@ -118,6 +118,7 @@ def render_quiz(lesson: LessonData, out: Path) -> None:
         "VIDEO_TITLE": html.escape(lesson.title),
         "VOCAB_DATA": json.dumps([v.__dict__ for v in vocab_sorted], ensure_ascii=False),
         "QUIZ_QUESTIONS_DATA": json.dumps(lesson.quiz_questions, ensure_ascii=False),
+        "SITUATION_CARDS_DATA": json.dumps(lesson.situation_cards, ensure_ascii=False),
         "VIDEO_URL": json.dumps(lesson.url),
     })
     out.write_text(result, encoding="utf-8")

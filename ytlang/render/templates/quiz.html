@@ -360,6 +360,79 @@ kbd {
 
 #qa-hint { margin-top: 20px; font-size: 0.6875rem; color: var(--muted); text-align: center; }
 
+/* ═══════════════════════════════════════════
+   SENTENCE REORDER
+   ═══════════════════════════════════════════ */
+#reorder-card { display: grid; grid-template-columns: 1fr 1fr; }
+
+.reorder-left {
+  padding: 36px 28px;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.reorder-right { padding: 36px 28px; display: flex; flex-direction: column; gap: 14px; }
+
+#reorder-zh {
+  font-family: var(--font-cjk);
+  font-size: 3.75rem; font-weight: 700; line-height: 1.1; color: var(--text);
+}
+#reorder-word { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 600; color: var(--level-color); font-style: italic; }
+
+.reorder-zone {
+  display: flex; flex-wrap: wrap; gap: 6px; min-height: 48px;
+  padding: 10px; border: 1.5px dashed var(--border); background: var(--bg);
+}
+.reorder-zone.answer-zone { border-style: solid; background: var(--card-bg); }
+
+.reorder-token {
+  padding: 8px 14px; border: 1px solid var(--border); background: var(--card-bg);
+  font-size: 0.875rem; cursor: pointer; font-family: inherit; transition: background 0.1s, opacity 0.1s;
+  user-select: none;
+}
+.reorder-token:hover { background: var(--hover-bg); }
+.reorder-token.placed { opacity: 0.25; pointer-events: none; }
+
+#reorder-feedback { font-size: 0.875rem; font-weight: 600; min-height: 1.3em; }
+#reorder-feedback.correct { color: var(--green); }
+#reorder-feedback.wrong { color: var(--red); }
+
+#reorder-correct-sentence {
+  font-size: 0.875rem; font-style: italic; color: var(--muted);
+  border-left: 2px solid var(--level-color); padding-left: 10px; line-height: 1.6;
+}
+
+#reorder-check-btn {
+  padding: 10px 16px; border: none; align-self: flex-start;
+  background: var(--indigo); color: #fff;
+  font-size: 0.8125rem; font-weight: 600; font-family: inherit;
+  cursor: pointer; transition: background 0.1s; white-space: nowrap;
+}
+#reorder-check-btn:hover:not(:disabled) { background: var(--indigo-dark); }
+#reorder-check-btn:disabled { opacity: 0.35; cursor: default; }
+
+/* ═══════════════════════════════════════════
+   SITUATION CARDS
+   ═══════════════════════════════════════════ */
+#situation-card { display: grid; grid-template-columns: 1fr 1fr; border-top-color: var(--indigo); }
+
+#situation-left {
+  padding: 36px 28px;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 12px;
+}
+#situation-options-col { padding: 36px 28px; display: flex; flex-direction: column; gap: 6px; }
+
+#situation-word { font-family: var(--font-serif); font-size: 2.25rem; font-weight: 600; color: var(--level-color); line-height: 1.1; }
+#situation-pos { font-size: 0.8125rem; font-style: italic; color: var(--muted); }
+#situation-scenario { font-size: 0.9375rem; line-height: 1.65; color: #444; }
+
+#situation-feedback {
+  font-size: 0.875rem; line-height: 1.65; color: #444;
+  border-left: 2px solid var(--indigo); padding-left: 12px;
+}
+
+#situation-hint { margin-top: 20px; font-size: 0.6875rem; color: var(--muted); text-align: center; }
+
 {{BACK_BTN_CSS}}
 
 /* ── Utilities ── */
@@ -383,7 +456,9 @@ kbd {
   <nav id="mode-nav" aria-label="Quiz modes">
     <button class="mode-btn active" data-mode="flashcard" aria-pressed="true">Flashcard</button>
     <button class="mode-btn" data-mode="fillin" aria-pressed="false">Fill in blank</button>
+    <button class="mode-btn" data-mode="reorder" aria-pressed="false">Reorder</button>
     <button class="mode-btn" data-mode="qa" aria-pressed="false">Comprehension</button>
+    <button class="mode-btn" data-mode="situation" aria-pressed="false">Situations</button>
   </nav>
 
   <div id="content">
@@ -514,17 +589,93 @@ kbd {
       </div>
     </div>
 
+    <!-- ═══ SENTENCE REORDER ═══ -->
+    <div id="section-reorder" style="display:none">
+      <div id="reorder-level-bar" class="level-bar">
+        <button class="lvl-btn active" data-level="all" aria-pressed="true">All</button>
+        <button class="lvl-btn" data-level="basic" aria-pressed="false">Basic</button>
+        <button class="lvl-btn" data-level="intermediate" aria-pressed="false">Inter</button>
+        <button class="lvl-btn" data-level="advanced" aria-pressed="false">Adv</button>
+      </div>
+
+      <div id="reorder-progress" class="progress" aria-live="polite">— / —</div>
+
+      <div class="quiz-card" id="reorder-card">
+        <div class="reorder-left">
+          <div class="card-badge" id="reorder-badge"></div>
+          <div id="reorder-zh">—</div>
+          <div id="reorder-word"></div>
+        </div>
+        <div class="reorder-right">
+          <div id="reorder-answer" class="reorder-zone answer-zone" aria-label="Your answer"></div>
+          <div id="reorder-pool" class="reorder-zone" aria-label="Word pool"></div>
+          <div id="reorder-feedback" role="alert"></div>
+          <div id="reorder-correct-sentence" style="display:none"></div>
+          <button id="reorder-check-btn">Check</button>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" id="reorder-btn-prev" aria-label="Previous">&#8592;</button>
+        <div id="reorder-nav-dots" class="nav-dots"></div>
+        <button class="nav-btn" id="reorder-btn-next" aria-label="Next">&#8594;</button>
+      </div>
+
+      <div class="score-row">
+        Correct: <span id="reorder-correct-count" class="score-correct">0</span>
+        &nbsp; Wrong: <span id="reorder-wrong-count" class="score-wrong">0</span>
+      </div>
+    </div>
+
+    <!-- ═══ SITUATION CARDS ═══ -->
+    <div id="section-situation" style="display:none">
+      <div id="situation-progress" class="progress" aria-live="polite">— / —</div>
+
+      <div class="quiz-card" id="situation-card">
+        <div id="situation-left">
+          <div class="qa-meta">
+            <span class="qa-type">Daily Life</span>
+          </div>
+          <div id="situation-word"></div>
+          <div id="situation-pos"></div>
+          <p id="situation-scenario"></p>
+          <div id="situation-feedback" style="display:none"></div>
+        </div>
+        <div id="situation-options-col">
+          <div id="situation-options"></div>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" id="situation-btn-prev" aria-label="Previous">&#8592;</button>
+        <div id="situation-nav-dots" class="nav-dots"></div>
+        <button class="nav-btn" id="situation-btn-next" aria-label="Next">&#8594;</button>
+      </div>
+
+      <div class="score-row">
+        Correct: <span id="situation-correct-count" class="score-correct">0</span>
+        &nbsp; Wrong: <span id="situation-wrong-count" class="score-wrong">0</span>
+      </div>
+
+      <div id="situation-hint">
+        <kbd>A</kbd> <kbd>B</kbd> <kbd>C</kbd> select &nbsp;&nbsp;
+        <kbd>←</kbd> <kbd>→</kbd> navigate
+      </div>
+    </div>
+
   </div><!-- #content -->
 </div><!-- #app -->
 
 <script type="application/json" id="vocab-data">{{VOCAB_DATA}}</script>
 <script type="application/json" id="quiz-questions-data">{{QUIZ_QUESTIONS_DATA}}</script>
+<script type="application/json" id="situation-cards-data">{{SITUATION_CARDS_DATA}}</script>
 
 <script>
 // ── Data ──────────────────────────────────────────────────────────
-const VOCAB_DATA         = JSON.parse(document.getElementById('vocab-data').textContent);
-const QUIZ_QUESTIONS_RAW = JSON.parse(document.getElementById('quiz-questions-data').textContent);
-const VIDEO_URL          = {{VIDEO_URL}};
+const VOCAB_DATA           = JSON.parse(document.getElementById('vocab-data').textContent);
+const QUIZ_QUESTIONS_RAW   = JSON.parse(document.getElementById('quiz-questions-data').textContent);
+const SITUATION_CARDS_RAW  = JSON.parse(document.getElementById('situation-cards-data').textContent);
+const VIDEO_URL            = {{VIDEO_URL}};
 
 {{LEVEL_COLORS_JS}}
 
@@ -538,6 +689,44 @@ function shuffle(arr) {
 }
 
 {{FMT_SECONDS_JS}}
+
+// Shared helpers
+function updateScore(prefix, correct, wrong) {
+  document.getElementById(prefix + '-correct-count').textContent = correct;
+  document.getElementById(prefix + '-wrong-count').textContent   = wrong;
+}
+
+function resultDotClass(results, i, cur) {
+  const r = results[i];
+  return (i === cur ? ' active' : '') + (r === 'correct' ? ' correct' : r === 'wrong' ? ' wrong' : '');
+}
+
+function renderOptions(containerEl, opts, labels, answered, correctIdx, selectedIdx, onSelect) {
+  containerEl.innerHTML = '';
+  opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'qa-option';
+    btn.disabled  = answered;
+    const lbl = document.createElement('span');
+    lbl.className   = 'opt-label';
+    lbl.textContent = labels[i];
+    const txt = document.createElement('span');
+    txt.textContent = opt;
+    btn.appendChild(lbl);
+    btn.appendChild(txt);
+    if (answered) {
+      if (i === correctIdx)                          btn.classList.add('correct-opt');
+      if (i === selectedIdx && i !== correctIdx)    btn.classList.add('wrong-opt');
+    }
+    btn.addEventListener('click', () => onSelect(i));
+    containerEl.appendChild(btn);
+  });
+}
+
+function shuffleOptions(correctText, wrongTexts) {
+  const opts = shuffle([correctText, ...wrongTexts]);
+  return { opts, correct: opts.indexOf(correctText) };
+}
 
 // Shared dot-navigator renderer
 function renderDots(navId, items, currentIndex, getExtraClass, goToFn) {
@@ -560,7 +749,8 @@ function renderDots(navId, items, currentIndex, getExtraClass, goToFn) {
 
 // ── Mode switching ─────────────────────────────────────────────────
 let currentMode = 'flashcard';
-let fillReady = false, qaReady = false;
+let fillReady = false, qaReady = false, reorderReady = false, situationReady = false;
+const ALL_MODES = ['flashcard', 'fillin', 'reorder', 'qa', 'situation'];
 
 document.querySelectorAll('.mode-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -572,11 +762,13 @@ document.querySelectorAll('.mode-btn').forEach(btn => {
       b.classList.toggle('active', active);
       b.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
-    document.getElementById('section-flashcard').style.display = mode === 'flashcard' ? '' : 'none';
-    document.getElementById('section-fillin').style.display    = mode === 'fillin'    ? '' : 'none';
-    document.getElementById('section-qa').style.display        = mode === 'qa'        ? '' : 'none';
-    if (mode === 'fillin' && !fillReady) { initFill(); fillReady = true; }
-    if (mode === 'qa'     && !qaReady)   { initQA();   qaReady   = true; }
+    ALL_MODES.forEach(m => {
+      document.getElementById('section-' + m).style.display = m === mode ? '' : 'none';
+    });
+    if (mode === 'fillin'    && !fillReady)      { initFill();      fillReady      = true; }
+    if (mode === 'qa'        && !qaReady)         { initQA();        qaReady        = true; }
+    if (mode === 'reorder'   && !reorderReady)    { initReorder();   reorderReady   = true; }
+    if (mode === 'situation' && !situationReady)  { initSituation(); situationReady = true; }
   });
 });
 
@@ -784,16 +976,10 @@ function fillGoTo(idx) {
 }
 
 function renderFillDots() {
-  renderDots('fill-nav-dots', fillVocab, fillIndex, (i, cur) => {
-    const r = fillResults[i];
-    return (i === cur ? ' active' : '') + (r === 'correct' ? ' correct' : r === 'wrong' ? ' wrong' : '');
-  }, fillGoTo);
+  renderDots('fill-nav-dots', fillVocab, fillIndex, (i, cur) => resultDotClass(fillResults, i, cur), fillGoTo);
 }
 
-function updateFillScore() {
-  document.getElementById('fill-correct-count').textContent = fillScoreC;
-  document.getElementById('fill-wrong-count').textContent   = fillScoreW;
-}
+function updateFillScore() { updateScore('fill', fillScoreC, fillScoreW); }
 
 document.getElementById('fill-check-btn').addEventListener('click', checkFillAnswer);
 document.getElementById('fill-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkFillAnswer(); });
@@ -811,9 +997,7 @@ let qaResults = [], qaSelected = [];
 let qaScoreC = 0, qaScoreW = 0;
 
 function buildOptions(q) {
-  const opts    = shuffle([q.answer, ...(q.distractors || [])]);
-  const correct = opts.indexOf(q.answer);
-  return { opts, correct };
+  return shuffleOptions(q.answer, q.distractors || []);
 }
 
 function initQA() {
@@ -845,33 +1029,10 @@ function renderQACard() {
   document.getElementById('qa-stars').textContent    = q.difficulty === 'hard' ? '★★★' : '★★';
   document.getElementById('qa-question').textContent = q.en;
 
-  const labels = ['A', 'B', 'C', 'D'];
-  const optDiv = document.getElementById('qa-options');
-  optDiv.innerHTML = '';
-
-  opts.forEach((opt, i) => {
-    const btn   = document.createElement('button');
-    btn.className = 'qa-option';
-    btn.disabled  = answered;
-
-    const label = document.createElement('span');
-    label.className   = 'opt-label';
-    label.textContent = labels[i];
-
-    const text = document.createElement('span');
-    text.textContent = opt;
-
-    btn.appendChild(label);
-    btn.appendChild(text);
-
-    if (answered) {
-      if (i === correct)                                 btn.classList.add('correct-opt');
-      if (i === qaSelected[qaIndex] && i !== correct)   btn.classList.add('wrong-opt');
-    }
-
-    btn.addEventListener('click', () => selectQAOption(i));
-    optDiv.appendChild(btn);
-  });
+  renderOptions(
+    document.getElementById('qa-options'), opts, ['A','B','C','D'],
+    answered, correct, qaSelected[qaIndex], selectQAOption
+  );
 
   // Feedback (in left column, below question)
   const fb = document.getElementById('qa-feedback');
@@ -909,19 +1070,264 @@ function qaGoTo(idx) {
 }
 
 function renderQADots() {
-  renderDots('qa-nav-dots', qaQuestions, qaIndex, (i, cur) => {
-    const r = qaResults[i];
-    return (i === cur ? ' active' : '') + (r === 'correct' ? ' correct' : r === 'wrong' ? ' wrong' : '');
-  }, qaGoTo);
+  renderDots('qa-nav-dots', qaQuestions, qaIndex, (i, cur) => resultDotClass(qaResults, i, cur), qaGoTo);
 }
 
-function updateQAScore() {
-  document.getElementById('qa-correct-count').textContent = qaScoreC;
-  document.getElementById('qa-wrong-count').textContent   = qaScoreW;
-}
+function updateQAScore() { updateScore('qa', qaScoreC, qaScoreW); }
 
 document.getElementById('qa-btn-prev').addEventListener('click', () => qaGoTo(qaIndex - 1));
 document.getElementById('qa-btn-next').addEventListener('click', () => qaGoTo(qaIndex + 1));
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  SENTENCE REORDER MODE
+// ═══════════════════════════════════════════════════════════════════
+let reorderVocab = [], reorderIndex = 0;
+let reorderResults = [], reorderScoreC = 0, reorderScoreW = 0;
+// Per-card state: tokenSets[i] = { tokens: shuffled[], answer: placedIndices[] }
+let reorderTokenSets = [];
+
+function tokenize(sentence) {
+  return sentence.split(/\s+/).filter(t => t.length > 0);
+}
+
+function initReorder() { setReorderLevel('all'); }
+
+function setReorderLevel(level) {
+  document.querySelectorAll('#reorder-level-bar .lvl-btn').forEach(b => {
+    const active = b.dataset.level === level;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+  const filtered = level === 'all' ? [...VOCAB_DATA] : VOCAB_DATA.filter(v => v.level === level);
+  reorderVocab = shuffle(filtered.filter(v => tokenize(v.example).length >= 4));
+  reorderIndex = 0;
+  reorderResults = new Array(reorderVocab.length).fill(null);
+  // Pre-shuffle tokens for each card so navigation preserves state
+  reorderTokenSets = reorderVocab.map(v => ({ tokens: shuffle(tokenize(v.example)), answer: [] }));
+  reorderScoreC = 0; reorderScoreW = 0;
+  updateReorderScore();
+  renderReorderCard(); renderReorderDots();
+}
+
+function renderReorderCard() {
+  const total = reorderVocab.length;
+  document.getElementById('reorder-progress').textContent = total ? `${reorderIndex + 1} / ${total}` : '0 / 0';
+  if (!total) {
+    document.getElementById('reorder-zh').textContent = '—';
+    document.getElementById('reorder-word').textContent = '';
+    document.getElementById('reorder-pool').innerHTML = '';
+    document.getElementById('reorder-answer').innerHTML = '';
+    return;
+  }
+
+  const v = reorderVocab[reorderIndex];
+  const result = reorderResults[reorderIndex];
+  const answered = result !== null;
+  const label = v.level.charAt(0).toUpperCase() + v.level.slice(1);
+
+  applyLevelColor(v.level);
+  document.getElementById('reorder-badge').textContent = label;
+  const zhEl = document.getElementById('reorder-zh');
+  zhEl.textContent = v.zh;
+  zhEl.lang = 'zh';
+  document.getElementById('reorder-word').textContent = v.word;
+
+  renderReorderZones(answered, v);
+
+  const feedback = document.getElementById('reorder-feedback');
+  const correctSentence = document.getElementById('reorder-correct-sentence');
+  const checkBtn = document.getElementById('reorder-check-btn');
+
+  if (answered) {
+    feedback.textContent = result === 'correct' ? '✓ Correct!' : '✗ Wrong order';
+    feedback.className = result;
+    correctSentence.textContent = `"${v.example}"`;
+    correctSentence.style.display = '';
+    checkBtn.disabled = true;
+  } else {
+    feedback.textContent = '';
+    feedback.className = '';
+    correctSentence.style.display = 'none';
+    checkBtn.disabled = false;
+  }
+
+  document.getElementById('reorder-btn-prev').disabled = reorderIndex === 0;
+  document.getElementById('reorder-btn-next').disabled = reorderIndex === total - 1;
+}
+
+function renderReorderZones(answered, v) {
+  const answerZone = document.getElementById('reorder-answer');
+  const poolZone = document.getElementById('reorder-pool');
+  answerZone.innerHTML = '';
+  poolZone.innerHTML = '';
+
+  if (answered) {
+    tokenize(v.example).forEach(t => {
+      const el = document.createElement('span');
+      el.className = 'reorder-token';
+      el.textContent = t;
+      el.style.cursor = 'default';
+      answerZone.appendChild(el);
+    });
+    return;
+  }
+
+  const cardState = reorderTokenSets[reorderIndex];
+  const placedSet = new Set(cardState.answer);
+
+  cardState.tokens.forEach((token, i) => {
+    const el = document.createElement('span');
+    el.className = 'reorder-token' + (placedSet.has(i) ? ' placed' : '');
+    el.textContent = token;
+    el.addEventListener('click', () => {
+      if (placedSet.has(i)) return;
+      cardState.answer.push(i);
+      renderReorderZones(false, null);
+    });
+    poolZone.appendChild(el);
+  });
+
+  cardState.answer.forEach((tokenIdx, ansIdx) => {
+    const el = document.createElement('span');
+    el.className = 'reorder-token';
+    el.textContent = cardState.tokens[tokenIdx];
+    el.addEventListener('click', () => {
+      cardState.answer.splice(ansIdx, 1);
+      renderReorderZones(false, null);
+    });
+    answerZone.appendChild(el);
+  });
+}
+
+function checkReorderAnswer() {
+  if (!reorderVocab.length || reorderResults[reorderIndex] !== null) return;
+  const cardState = reorderTokenSets[reorderIndex];
+  if (cardState.answer.length === 0) return;
+
+  const v = reorderVocab[reorderIndex];
+  const userSentence = cardState.answer.map(i => cardState.tokens[i]).join(' ');
+  const isCorrect = userSentence === v.example;
+
+  reorderResults[reorderIndex] = isCorrect ? 'correct' : 'wrong';
+  if (isCorrect) reorderScoreC++; else reorderScoreW++;
+  updateReorderScore();
+  renderReorderCard(); renderReorderDots();
+  if (isCorrect && reorderIndex < reorderVocab.length - 1) {
+    const next = reorderIndex + 1;
+    setTimeout(() => reorderGoTo(next), 900);
+  }
+}
+
+function reorderGoTo(idx) {
+  if (idx < 0 || idx >= reorderVocab.length) return;
+  reorderIndex = idx; renderReorderCard(); renderReorderDots();
+}
+
+function renderReorderDots() {
+  renderDots('reorder-nav-dots', reorderVocab, reorderIndex, (i, cur) => resultDotClass(reorderResults, i, cur), reorderGoTo);
+}
+
+function updateReorderScore() { updateScore('reorder', reorderScoreC, reorderScoreW); }
+
+document.getElementById('reorder-check-btn').addEventListener('click', checkReorderAnswer);
+document.getElementById('reorder-btn-prev').addEventListener('click', () => reorderGoTo(reorderIndex - 1));
+document.getElementById('reorder-btn-next').addEventListener('click', () => reorderGoTo(reorderIndex + 1));
+document.querySelectorAll('#reorder-level-bar .lvl-btn').forEach(b => b.addEventListener('click', () => setReorderLevel(b.dataset.level)));
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  SITUATION CARDS MODE
+// ═══════════════════════════════════════════════════════════════════
+let sitCards = [], sitOptions = [], sitIndex = 0;
+let sitResults = [], sitSelected = [];
+let sitScoreC = 0, sitScoreW = 0;
+const vocabByWord = new Map(VOCAB_DATA.map(v => [v.word, v]));
+
+function initSituation() {
+  if (!SITUATION_CARDS_RAW.length) {
+    document.getElementById('situation-scenario').textContent = 'No situation cards for this lesson.';
+    document.getElementById('situation-options').innerHTML    = '';
+    document.getElementById('situation-progress').textContent = '0 / 0';
+    document.getElementById('situation-word').textContent     = '';
+    document.getElementById('situation-pos').textContent      = '';
+    return;
+  }
+  sitCards   = shuffle([...SITUATION_CARDS_RAW]);
+  sitOptions = sitCards.map(c => shuffleOptions(c.correct, [c.wrong1, c.wrong2]));
+  sitIndex   = 0;
+  sitResults  = new Array(sitCards.length).fill(null);
+  sitSelected = new Array(sitCards.length).fill(null);
+  sitScoreC   = 0; sitScoreW = 0;
+  updateSitScore(); renderSitCard(); renderSitDots();
+}
+
+function renderSitCard() {
+  const total    = sitCards.length;
+  const answered = sitResults[sitIndex] !== null;
+  document.getElementById('situation-progress').textContent = total ? `${sitIndex + 1} / ${total}` : '0 / 0';
+  if (!total) return;
+
+  const card = sitCards[sitIndex];
+  const { opts, correct } = sitOptions[sitIndex];
+
+  const vocabMatch = vocabByWord.get(card.word);
+  if (vocabMatch) {
+    applyLevelColor(vocabMatch.level);
+    document.getElementById('situation-pos').textContent = vocabMatch.pos;
+  } else {
+    document.getElementById('situation-pos').textContent = '';
+  }
+
+  document.getElementById('situation-word').textContent     = card.word;
+  document.getElementById('situation-scenario').textContent = card.situation;
+
+  renderOptions(
+    document.getElementById('situation-options'), opts, ['A','B','C'],
+    answered, correct, sitSelected[sitIndex], selectSitOption
+  );
+
+  const fb = document.getElementById('situation-feedback');
+  if (answered) {
+    fb.textContent = sitResults[sitIndex] === 'correct'
+      ? '✓ That\'s the natural way to use this word!'
+      : '✗ The correct usage is: "' + card.correct + '"';
+    fb.style.display = '';
+  } else {
+    fb.style.display = 'none';
+  }
+
+  document.getElementById('situation-btn-prev').disabled = sitIndex === 0;
+  document.getElementById('situation-btn-next').disabled = sitIndex === total - 1;
+}
+
+function selectSitOption(selectedIdx) {
+  if (!sitCards.length || sitResults[sitIndex] !== null) return;
+  const { correct } = sitOptions[sitIndex];
+  const isCorrect = selectedIdx === correct;
+  sitResults[sitIndex]  = isCorrect ? 'correct' : 'wrong';
+  sitSelected[sitIndex] = selectedIdx;
+  if (isCorrect) sitScoreC++; else sitScoreW++;
+  updateSitScore(); renderSitCard(); renderSitDots();
+  if (isCorrect && sitIndex < sitCards.length - 1) {
+    const next = sitIndex + 1;
+    setTimeout(() => sitGoTo(next), 900);
+  }
+}
+
+function sitGoTo(idx) {
+  if (idx < 0 || idx >= sitCards.length) return;
+  sitIndex = idx; renderSitCard(); renderSitDots();
+}
+
+function renderSitDots() {
+  renderDots('situation-nav-dots', sitCards, sitIndex, (i, cur) => resultDotClass(sitResults, i, cur), sitGoTo);
+}
+
+function updateSitScore() { updateScore('situation', sitScoreC, sitScoreW); }
+
+document.getElementById('situation-btn-prev').addEventListener('click', () => sitGoTo(sitIndex - 1));
+document.getElementById('situation-btn-next').addEventListener('click', () => sitGoTo(sitIndex + 1));
 
 
 // ── Global keyboard handler ─────────────────────────────────────────
@@ -946,12 +1352,26 @@ document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') fillGoTo(fillIndex + 1);
   }
 
+  if (currentMode === 'reorder' && !inInput) {
+    if (e.key === 'ArrowLeft')  reorderGoTo(reorderIndex - 1);
+    if (e.key === 'ArrowRight') reorderGoTo(reorderIndex + 1);
+    if (e.key === 'Enter') checkReorderAnswer();
+  }
+
   if (currentMode === 'qa' && !inInput) {
     if (e.key === 'ArrowLeft')  qaGoTo(qaIndex - 1);
     if (e.key === 'ArrowRight') qaGoTo(qaIndex + 1);
     const map = { a: 0, b: 1, c: 2, d: 3 };
     const idx = map[e.key.toLowerCase()];
     if (idx !== undefined) selectQAOption(idx);
+  }
+
+  if (currentMode === 'situation' && !inInput) {
+    if (e.key === 'ArrowLeft')  sitGoTo(sitIndex - 1);
+    if (e.key === 'ArrowRight') sitGoTo(sitIndex + 1);
+    const map = { a: 0, b: 1, c: 2 };
+    const idx = map[e.key.toLowerCase()];
+    if (idx !== undefined) selectSitOption(idx);
   }
 });
 </script>

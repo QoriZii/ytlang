@@ -99,7 +99,7 @@ def _run_prep(url: str, outdir_base: Optional[Path] = None, source_lang: str = D
 
     typer.echo(f"  Analyzing with {config.XAI_MODEL}…")
     try:
-        video_brief, key_points, quiz_questions, vocab, transcript = analyze(
+        video_brief, key_points, quiz_questions, situation_cards, vocab, transcript = analyze(
             title=meta.title,
             channel=meta.channel,
             duration=meta.duration,
@@ -123,6 +123,7 @@ def _run_prep(url: str, outdir_base: Optional[Path] = None, source_lang: str = D
         native_lang=native_lang,
         key_points=key_points,
         quiz_questions=quiz_questions,
+        situation_cards=situation_cards,
         vocab=vocab,
         transcript=transcript,
     )
@@ -241,7 +242,7 @@ def _run_reprocess(
 
     if do_analyze:
         typer.echo(f"  Analyzing with {config.XAI_MODEL}…")
-        video_brief, key_points, quiz_questions, vocab, annotated = analyze(
+        video_brief, key_points, quiz_questions, situation_cards, vocab, annotated = analyze(
             title=lesson.title,
             channel=lesson.channel,
             duration=lesson.duration,
@@ -252,6 +253,7 @@ def _run_reprocess(
         lesson.video_brief = video_brief
         lesson.key_points = key_points
         lesson.quiz_questions = quiz_questions
+        lesson.situation_cards = situation_cards
         lesson.vocab = vocab
         lesson.transcript = annotated
 
