@@ -90,6 +90,7 @@ def render_handout(lesson: LessonData, out: Path) -> None:
         "DATE": lesson.generated_date,
         "VIDEO_URL": lesson.url,
         "VIDEO_BRIEF": html.escape(lesson.video_brief),
+        "SOURCE_LANG": lesson.source_lang,
         "KEY_POINTS": key_points_html(lesson.key_points),
         "VOCAB_BASIC": vocab_html(by_level.get("basic", [])),
         "VOCAB_INTERMEDIATE": vocab_html(by_level.get("intermediate", [])),

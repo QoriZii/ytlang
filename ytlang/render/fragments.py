@@ -16,10 +16,13 @@ def fmt_seconds(s: int) -> str:
 def key_points_html(key_points: list[dict]) -> str:
     items = []
     for kp in key_points:
+        en_text = kp.get("en", "")
+        zh_text = kp.get("zh", "")
+        zh_span = f'<span class="kp-zh" lang="zh">{html.escape(zh_text)}</span>' if zh_text else ""
         items.append(
             f'<li class="kp-entry">'
-            f'<span class="kp-en">{html.escape(kp.get("en", ""))}</span>'
-            f'<span class="kp-zh" lang="zh">{html.escape(kp.get("zh", ""))}</span>'
+            f'<span class="kp-en">{html.escape(en_text)}</span>'
+            f'{zh_span}'
             f"</li>"
         )
     return "\n".join(items)
@@ -33,6 +36,8 @@ def vocab_html(vocab: list[VocabEntry]) -> str:
             f'<li class="vocab-entry">'
             f'<div class="entry-head">'
             f'<span class="word">{html.escape(v.word)}</span>'
+            f'<button class="speak-btn" data-word="{html.escape(v.word, quote=True)}" title="Listen">'
+            f'<span class="material-symbols-outlined">volume_up</span></button>'
             f'<span class="pos">{html.escape(v.pos)}</span>'
             f'<span class="zh" lang="zh">{html.escape(v.zh)}</span>'
             f"</div>"
