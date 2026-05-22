@@ -2,7 +2,7 @@
 
 Generate language teaching materials from YouTube videos, so that you can tailor your learning process.
 
-Currently supports learning **English, French, Spanish, Chinese, Japanese, and Korean** from YouTube.
+Currently supports learning **English, French, Spanish, German, Chinese, Japanese, and Korean** from YouTube.
 
 Given a YouTube URL, produces:
 - **`recording.html`** — embedded video, live bilingual transcript strip, vocab flashcard panel
@@ -116,6 +116,9 @@ uv run ytlang prep https://www.youtube.com/watch?v=VIDEO_ID
 # French video, Chinese learner
 uv run ytlang prep https://www.youtube.com/watch?v=VIDEO_ID --lang fr
 
+# German video, Chinese learner
+uv run ytlang prep https://www.youtube.com/watch?v=VIDEO_ID --lang de
+
 # Japanese video, English learner
 uv run ytlang prep https://www.youtube.com/watch?v=VIDEO_ID --lang ja --native en
 
@@ -212,6 +215,7 @@ examples/
 | `en` | English | Yes | Yes | CEFR A2–C1 |
 | `fr` | French | Yes | Yes | DELF A1–DALF C1 |
 | `es` | Spanish | Yes | Yes | DELE A1–C1 |
+| `de` | German | Yes | Yes | Goethe A1–C1 |
 | `zh` | Chinese (Simplified) | Yes | Yes | HSK 1–6+ |
 | `ja` | Japanese | Yes | Yes | JLPT N5–N1 |
 | `ko` | Korean | Yes | Yes | TOPIK I–II |
@@ -219,7 +223,7 @@ examples/
 ## Future work
 
 - [ ] More LLM providers — support OpenAI, Claude, Gemini, and local models alongside Grok
-- [ ] More languages — Arabic, German, Portuguese, Hindi, Thai, Vietnamese
+- [ ] More languages — Arabic, Portuguese, Hindi, Thai, Vietnamese
 - [ ] More quiz types — listening comprehension, sentence reordering, dictation, shadowing exercises
 - [ ] Batch processing — prep multiple videos from a URL list in one command
 

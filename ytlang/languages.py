@@ -33,6 +33,11 @@ LANGUAGES = {
         "native_name": "日语",
         "transcript_code": "ja",
     },
+    "de": {
+        "name": "German",
+        "native_name": "德语",
+        "transcript_code": "de",
+    },
 }
 
 DEFAULT_SOURCE_LANG = "en"
