@@ -83,11 +83,19 @@ def cloze_html(vocab: list[VocabEntry]) -> tuple[str, str]:
     return '\n'.join(items), word_bank_html
 
 
+def _wrap_words(text: str) -> str:
+    """Wrap each English word in a <span class="w"> for hover translation."""
+    def _replace(m: re.Match) -> str:
+        word = m.group(0)
+        return f'<span class="w">{html.escape(word)}</span>'
+    return re.sub(r"[a-zA-Z'\u2019-]+", _replace, text)
+
+
 def transcript_lines_html(lesson: LessonData) -> str:
     parts = []
     for e in lesson.transcript:
         ts = fmt_seconds(e.seconds)
-        source_line = f'<span class="en">{html.escape(e.en)}</span>'
+        source_line = f'<span class="en">{_wrap_words(e.en)}</span>'
         native_line = f'<span class="zh">{html.escape(e.zh)}</span>'
         if e.note:
             parts.append(

@@ -104,9 +104,12 @@ def render_handout(lesson: LessonData, out: Path) -> None:
 
 def render_transcript(lesson: LessonData, out: Path) -> None:
     tmpl = _load_template("transcript.html")
+    gt_codes = {"zh": "zh-CN"}
     result = _sub(tmpl, {**_shared_vars(lesson),
         "VIDEO_TITLE": html.escape(lesson.title),
         "TRANSCRIPT_LINES": transcript_lines_html(lesson),
+        "SOURCE_LANG": gt_codes.get(lesson.source_lang, lesson.source_lang),
+        "NATIVE_LANG": gt_codes.get(lesson.native_lang, lesson.native_lang),
     })
     out.write_text(result, encoding="utf-8")
     print(f"  transcript.html → {out}")

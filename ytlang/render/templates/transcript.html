@@ -76,6 +76,34 @@ h1 {
   line-height: 1.7;
 }
 
+/* ── Word hover tooltip ── */
+.w { cursor: default; }
+.w:hover { border-bottom: 1px solid #b58900; }
+
+#w-tip {
+  display: none;
+  position: absolute;
+  background: #073642;
+  color: #fdf6e3;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
+  font-size: 0.8125rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none;
+  line-height: 1.4;
+}
+#w-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -4px;
+  border: 4px solid transparent;
+  border-top-color: #073642;
+}
+
 {{BACK_BTN_CSS}}
 
 /* ── Print ── */
@@ -99,10 +127,70 @@ h1 {
 {{TRANSCRIPT_LINES}}
 </div>
 
+<div id="w-tip"></div>
+
 <script>
 if (window.location.protocol !== 'file:') {
   document.getElementById('back-btn').style.display = 'flex';
 }
+
+// ── Word hover translation ──
+(function() {
+  const tip = document.getElementById('w-tip');
+  const cache = new Map();
+  let hoverTimer = null;
+  let activeWord = null;
+
+  function showTip(el, text) {
+    tip.textContent = text;
+    tip.style.display = 'block';
+    const r = el.getBoundingClientRect();
+    const tw = tip.offsetWidth;
+    let left = r.left + r.width / 2 - tw / 2;
+    if (left < 4) left = 4;
+    if (left + tw > window.innerWidth - 4) left = window.innerWidth - 4 - tw;
+    tip.style.left = left + window.scrollX + 'px';
+    tip.style.top = (r.top + window.scrollY - tip.offsetHeight - 6) + 'px';
+  }
+
+  function hideTip() {
+    tip.style.display = 'none';
+    activeWord = null;
+  }
+
+  async function lookup(word) {
+    const key = word.toLowerCase().replace(/^['\u2019]+|['\u2019]+$/g, '');
+    if (cache.has(key)) return cache.get(key);
+    try {
+      const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl={{SOURCE_LANG}}&tl={{NATIVE_LANG}}&dt=t&q=' + encodeURIComponent(key);
+      const res = await fetch(url);
+      const data = await res.json();
+      const zh = data[0].map(s => s[0]).join('');
+      cache.set(key, zh);
+      return zh;
+    } catch { return null; }
+  }
+
+  document.getElementById('transcript').addEventListener('mouseenter', function(e) {
+    const el = e.target.closest('.w');
+    if (!el) return;
+    activeWord = el;
+    clearTimeout(hoverTimer);
+    hoverTimer = setTimeout(async () => {
+      if (activeWord !== el) return;
+      const text = el.textContent;
+      const zh = await lookup(text);
+      if (zh && activeWord === el) showTip(el, zh);
+    }, 150);
+  }, true);
+
+  document.getElementById('transcript').addEventListener('mouseleave', function(e) {
+    const el = e.target.closest('.w');
+    if (!el) return;
+    clearTimeout(hoverTimer);
+    hideTip();
+  }, true);
+})();
 </script>
 </body>
 </html>
