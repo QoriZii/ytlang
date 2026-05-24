@@ -65,6 +65,7 @@ Key points rules:
 - Write 4-6 bullet points summarising the main ideas or points covered in the video.
 - Each point should be concise (one sentence).
 - Cover different moments across the video, not just the opening.
+- IMPORTANT: Every key point MUST include both "en" (German) AND "zh" ({native_lang_name} translation). Never leave "zh" empty.
 
 Quiz questions rules:
 - Write 4-6 questions that are specific and fact-based, suited for single-choice multiple choice.
